@@ -183,7 +183,7 @@ int		has_pipe(t_token *token);
 t_token	*next_type(t_token *token, int type, int skip);
 
 /*
-** EXPANSIONS
+** EXPANDER
 */
 int		rtn_size(int ret);
 int		getExpandedValueLen(const char *arg, int pos, t_env *env, int ret);
