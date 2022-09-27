@@ -3,7 +3,7 @@
 int		ft_isseparator(char *line, int i)
 {
 	if (i > 0 && line[i - 1] == '\\' && ft_strchr("<>|;", line[i]))
-		return (0);
+		return (1);
 	else if (ft_strchr("<>|;", line[i]) && isQuoteOpen(line, i) == 0)
 		return (1);
 	else
