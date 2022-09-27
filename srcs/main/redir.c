@@ -41,22 +41,28 @@ void	input(t_mini *mini, t_token *token)
 void	heredoc(t_mini *mini, t_token *token)
 {
 	char	*line;
-	int		flags;
-	int		fd;
+	int		fd[2];
 
+	line = NULL;
 	(void)mini;
-	flags = O_WRONLY | O_CREAT | O_TRUNC;
-	line = ft_strdup("");
-	fd = open("heredoc.tmp", flags, 0777);
-	while (ft_strncmp(line, token->str, ft_strlen(token->str))
-		|| ft_strlen(line) != ft_strlen(token->str))
+	pipe(fd);
+	while (1)
 	{
 		free(line);
 		line = readline("> ");
-		if (ft_strlen(line) != ft_strlen(token->str))
-			ft_putendl_fd(line, fd);
+		if (!line)
+			break ;
+		if (ft_strncmp(line, token->str, ft_strlen(token->str)) == 0 \
+				&& line[ft_strlen(token->str)] == '\0')
+			break ;
+		ft_putendl_fd(line, fd[1]);
+		if (ft_strlen(line))
+			free(line);
+		line = NULL;
 	}
-	close(fd);
+	dup2(fd[0], 0);
+	close(fd[1]);
+	close(fd[0]);
 	free(line);
 }
 
