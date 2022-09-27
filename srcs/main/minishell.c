@@ -16,11 +16,7 @@ void	exec_and_redir(t_mini *mini, t_token *token)
 	else if (ft_istype(previous, APPEND))
 		output(mini, token, APPEND);
 	else if (ft_istype(previous, HEREDOC))
-	{
-		mini->fdin = open("heredoc.tmp", O_RDONLY | O_CREAT, 0777);
 		heredoc(mini, token);
-		dup2(mini->fdin, STDIN);
-	}
 	else if (ft_istype(previous, INPUT))
 		input(mini, token);
 	else if (ft_istype(previous, PIPE))
