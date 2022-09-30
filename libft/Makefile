@@ -19,7 +19,7 @@ SRC := ft_strjoin.c \
 	ft_split.c ft_tolower.c \
 	ft_strchr.c ft_toupper.c \
 	ft_strdup.c ft_skip_spacenl.c \
-	ft_striteri.c ft_skip_space.c
+	ft_striteri.c ft_skip_space.c ft_strcmpall.c
 
 SRCB := $(SRC) ft_lstnew.c ft_lstadd_front.c\
 	ft_lstsize.c ft_lstlast.c\
