@@ -19,7 +19,7 @@ int	ft_echo(char **args)
 	i = 1;
 	if (how_many_args(args) > 1)
 	{
-		while (args[i] && ft_strcmp(args[i], "-n") == 0)
+		while (args[i] && (ft_strcmp(args[i], "-n") == 0 || ft_strcmpall(args[i], 1, 'n') == 0))
 		{
 			n_option = 1;
 			i++;
