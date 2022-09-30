@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-t_sig	g_sig;
-
 void	exec_and_redir(t_mini *mini, t_token *token)
 {
 	t_token	*previous;
