@@ -201,5 +201,6 @@ void	restore_prompt(int sig);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
 
-extern t_sig g_sig;
+t_sig g_sig;
+
 #endif
