@@ -30,8 +30,6 @@ char	*addSpaceBetweenCmds(char *line)
 	new = alloc_space(line);
 	while (new && line[i])
 	{
-		if (isQuoteOpen(line, i) != 2 && line[i] == '$' && i)
-			new[j++] = (char)(-line[i++]);
 		if (isQuoteOpen(line, i) == 0 && ft_isseparator(line, i))
 		{
 			new[j++] = ' ';
@@ -74,7 +72,5 @@ char    *lexer(t_mini *mini)
 	if (check_quote(mini, &line))
 		return (NULL);
 	line = addSpaceBetweenCmds(line);
-	if (line && line[0] == '$')
-		line[0] = (char)(-line[0]);
     return (line);
 }
