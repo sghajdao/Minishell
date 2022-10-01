@@ -1,30 +1,14 @@
 #include "minishell.h"
 
-int		ft_isseparator(char *line, int i)
+int	ft_isseparator(char *line, int i)
 {
-	if (i > 0 && line[i - 1] == '\\' && ft_strchr("<>|;", line[i]))
-		return (1);
-	else if (ft_strchr("<>|;", line[i]) && isQuoteOpen(line, i) == 0)
+	if (ft_strchr("<>|", line[i]) && isQuoteOpen(line, i) == 0)
 		return (1);
 	else
 		return (0);
 }
 
-int		transcend_separ(char *line, int i)
-{
-	if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == ';')
-		return (1);
-	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '|')
-		return (1);
-	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>')
-		return (1);
-	else if (line[i] && line[i] == '\\' && line[i + 1] && line[i + 1] == '>'
-				&& line[i + 2] && line[i + 2] == '>')
-		return (1);
-	return (0);
-}
-
-int		isQuoteOpen(char *line, int index)
+int	isQuoteOpen(char *line, int index)
 {
 	int	i;
 	int	open;
@@ -33,9 +17,7 @@ int		isQuoteOpen(char *line, int index)
 	open = 0;
 	while (line[i] && i != index)
 	{
-		if (i > 0 && line[i - 1] == '\\')
-			;
-		else if (open == 0 && line[i] == '\"')
+		if (open == 0 && line[i] == '\"')
 			open = 1;
 		else if (open == 0 && line[i] == '\'')
 			open = 2;
@@ -55,7 +37,7 @@ int	is_last_arg(t_token *token)
 	if (!token || ft_istype(token, CMD) || ft_istype(token, ARG))
 	{
 		previous = previous_separ(token, NOSKIP);
-		if (!previous || ft_istype(previous, END) || ft_istype(previous, PIPE))
+		if (!previous || ft_istype(previous, PIPE))
 			return (1);
 		return (0);
 	}
@@ -68,7 +50,7 @@ int	check_syntax(t_mini *mini, t_token *token)
 	while (token)
 	{
 		if (hasAtypeOf(token, "TAI")
-		&& (!token->next || hasAtypeOf(token->next, "TAIPE")))
+		&& (!token->next || hasAtypeOf(token->next, "TAIP")))
 		{
 			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
 			if (token->next)
@@ -80,7 +62,7 @@ int	check_syntax(t_mini *mini, t_token *token)
 			return (0);
 		}
 		if (hasAtypeOf(token, "PE")
-		&& (!token->prev || !token->next || hasAtypeOf(token->prev, "TAIPE")))
+		&& (!token->prev || !token->next || hasAtypeOf(token->prev, "TAIP")))
 		{
 			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
 			ft_putstr_fd(token->str, STDERR);
