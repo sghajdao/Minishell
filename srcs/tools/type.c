@@ -26,12 +26,10 @@ int	hasAtypeOf(t_token *token, char *types)
 		return (1);
 	else if (ft_strchr(types, 'P') && ft_istype(token, PIPE))
 		return (1);
-	else if (ft_strchr(types, 'E') && ft_istype(token, END))
-		return (1);
 	return (0);
 }
 
-int		has_type(t_token *token, int type)
+int	has_type(t_token *token, int type)
 {
 	while (token)
 	{
@@ -42,9 +40,9 @@ int		has_type(t_token *token, int type)
 	return (0);
 }
 
-int		has_pipe(t_token *token)
+int	has_pipe(t_token *token)
 {
-	while (token && ft_istype(token, END) == 0)
+	while (token)
 	{
 		if (ft_istype(token, PIPE))
 			return (1);
