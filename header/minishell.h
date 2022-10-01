@@ -34,7 +34,7 @@
 # define NOSKIP 0
 
 # define BUFF_SIZE 4096
-# define EXPANDER -36
+# define EXPANDER 36
 # define ERROR 1
 # define SUCCESS 0
 # define IS_DIRECTORY 126
