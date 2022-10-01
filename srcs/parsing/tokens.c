@@ -14,8 +14,6 @@ void	type_arg_parsing(t_token *token, int separator)
 		token->type = TRUNC;
 	else if (ft_strcmp(token->str, "<") == 0 && separator == 0)
 		token->type = INPUT;
-	else if (ft_strcmp(token->str, ";") == 0 && separator == 0)
-		token->type = END;
 	else if (token->prev == NULL || token->prev->type >= TRUNC)
 		token->type = CMD;
 	else
@@ -77,8 +75,6 @@ int		next_length(char *line, int *i)
 		}
 		else
 			j++;
-		if (line[*i + j - 1] == '\\')
-			count--;
 	}
 	return (j - count + 1);
 }
@@ -116,7 +112,6 @@ t_token	*tokenizer(char *line)
 {
 	t_token	*previous;
 	t_token	*next;
-	int		sep;
 	int		i;
 
 	next = NULL;
@@ -125,13 +120,12 @@ t_token	*tokenizer(char *line)
 	ft_skip_space(line, &i);
 	while (line[i])
 	{
-		sep = transcend_separ(line, i);
 		next = get_next_token(line, &i);
 		next->prev = previous;
 		if (previous)
 			previous->next = next;
 		previous = next;
-		type_arg_parsing(next, sep);
+		type_arg_parsing(next, 0);
 		ft_skip_space(line, &i);
 	}
 	if (next)
