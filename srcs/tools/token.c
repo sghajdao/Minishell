@@ -25,7 +25,7 @@ t_token	*last_token(t_token *token, int skip)
 	while (token && token->type != CMD)
 	{
 		token = token->next;
-		if (token && token->type == CMD && token->prev->type < END)
+		if (token && token->type == CMD)
 			token = token->next;
 	}
 	return (token);
