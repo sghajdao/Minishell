@@ -14,14 +14,16 @@ void	exec_and_redir(t_mini *mini, t_token *token)
 	else if (ft_istype(previous, APPEND))
 		output(mini, token, APPEND);
 	else if (ft_istype(previous, HEREDOC))
+	{
 		heredoc(mini, token);
+	}
 	else if (ft_istype(previous, INPUT))
 		input(mini, token);
 	else if (ft_istype(previous, PIPE))
 		pipe = minipipe(mini);
-	if (next && ft_istype(next, END) == 0 && pipe != 1)
+	if (next && pipe != 1)
 		exec_and_redir(mini, next->next);
-	if ((ft_istype(previous, END) || ft_istype(previous, PIPE) || !previous)
+	if ((ft_istype(previous, PIPE) || !previous)
 		&& pipe != 1 && mini->no_exec == 0)
 		execution_center(mini, token);
 }
@@ -32,7 +34,7 @@ void	minishell(t_mini *mini)
 	int		status;
 
 	token = last_token(mini->start, NOSKIP);
-	if (hasAtypeOf(mini->start, "TAI"))
+	if (hasAtypeOf(mini->start, "THAI"))
 		token = mini->start->next;
 	while (mini->exit == 0 && token)
 	{
