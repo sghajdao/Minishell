@@ -25,7 +25,6 @@
 # define HEREDOC 5
 # define INPUT 6
 # define PIPE 7
-# define END 8
 
 # define STDIN 0
 # define STDOUT 1
