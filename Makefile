@@ -4,6 +4,10 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I header/ -I libft/
 
+LDFLAGS="-L/goinfre/sghajdao/homebrew/opt/readline/lib"
+
+CPPFLAGS="-I/goinfre/sghajdao/homebrew/opt/readline/include"
+
 LIBFT = libft/libft.a
 
 HEADER = minishell.h
@@ -35,7 +39,7 @@ $(NAME): $(OBJ)
 	@echo "\n"
 	@make bonus -C libft/
 	@echo "\033[0;32mCompiling minishell..."
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(CPPFLAGS) $(LIBFT) $(LDFLAGS) -lreadline
 	@echo "\n\033[0mDone !"
 
 %.o: %.c HEADER
