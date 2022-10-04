@@ -95,14 +95,20 @@ int	ft_export(char **args, t_env *env, t_env *secret)
 			if (error_ret <= 0)
 				return (print_error(error_ret, args[i]));
 			if (error_ret == 2)
-				new_env = 1;
+			{
+				new_env = already_exist_in_env(secret, args[i]);
+				if (new_env == 0)
+					add_to_env(args[i], secret);
+			}
 			else
 				new_env = already_exist_in_env(env, args[i]);
 			if (new_env == 0)
 			{
 				if (error_ret == 1)
 					add_to_env(args[i], env);
-				add_to_env(args[i], secret);
+				new_env = already_exist_in_env(secret, args[i]);
+				if (new_env == 0)
+					add_to_env(args[i], secret);
 			}
 			i++;
 		}
