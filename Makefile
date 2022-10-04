@@ -12,8 +12,6 @@ LIBFT = libft/libft.a
 
 HEADER = minishell.h
 
-GET_NEXT_LINE = get_next_line_utils get_next_line
-
 BUILTINS = cd echo env exit export pwd unset
 
 ENV = env get_env sort_env shlvl
@@ -26,8 +24,7 @@ PARSING = parser tokens expander lexer
 
 TOOLS = fd free token type expander parsing
 
-SRC = $(addsuffix .c, $(addprefix get_next_line/, $(GET_NEXT_LINE))) \
-	  $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
+SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 	  $(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
 	  $(addsuffix .c, $(addprefix srcs/exec/, $(EXEC))) \
 	  $(addsuffix .c, $(addprefix srcs/main/, $(MAIN))) \
