@@ -118,7 +118,13 @@ int	ft_export(char **args, t_env *env, t_env *secret)
 			if (args[i][0] == '=')
 				error_ret = -3;
 			if (error_ret <= 0)
-				return (print_error(error_ret, args[i]));
+			{
+				if  (print_error(error_ret, args[i]) == ERROR)
+				{
+					i++;
+					continue;
+				}
+			}
 			if (error_ret == 2)
 			{
 				new_env = already_exist_in_env(secret, args[i]);
