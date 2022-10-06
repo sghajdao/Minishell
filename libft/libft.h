@@ -78,5 +78,6 @@ void	ft_putstr(char *s);
 void	ft_skip_spacenl(const char *str, int *i);
 void	ft_skip_space(const char *str, int *i);
 int 	ft_strcmpall(char *str, int start, int c);
+int		ft_search(char *str, int c);
 
 #endif
