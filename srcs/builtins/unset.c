@@ -23,31 +23,54 @@ static void	delete_node(t_mini *mini, t_env *env)
 	ft_memdel(env);
 }
 
+void	secret_unset(char **a, t_mini *mini)
+{
+	t_env	*tmp;
+	t_env	*env;
+	int		i;
+
+	env = mini->copy_env;
+	if (!(a[1]))
+		return ;
+	while (env && env->next)
+	{
+		i = 1;
+		while (a[i])
+		{
+			if (ft_strncmp(a[i], env->next->value, env_name_size(env->next->value)) == 0)
+			{
+				tmp = env->next->next;
+				delete_node(mini, env->next);
+				env->next = tmp;
+			}
+			i++;
+		}
+		env = env->next;
+	}
+}
+
 int	ft_unset(char **a, t_mini *mini)
 {
 	t_env	*tmp;
 	t_env	*env;
+	int		i;
 
+	secret_unset(a, mini);
 	env = mini->env;
 	if (!(a[1]))
 		return (SUCCESS);
-	if (ft_strncmp(a[1], env->value, env_name_size(env->value)) == 0)
-	{
-		if (env->next)
-			mini->env = env->next;
-		else
-			mini->env = mini->env;
-		delete_node(mini, env);
-		return (SUCCESS);
-	}
 	while (env && env->next)
 	{
-		if (ft_strncmp(a[1], env->next->value, env_name_size(env->next->value)) == 0)
+		i = 1;
+		while (a[i])
 		{
-			tmp = env->next->next;
-			delete_node(mini, env->next);
-			env->next = tmp;
-			return (SUCCESS);
+			if (ft_strncmp(a[i], env->next->value, env_name_size(env->next->value)) == 0)
+			{
+				tmp = env->next->next;
+				delete_node(mini, env->next);
+				env->next = tmp;
+			}
+			i++;
 		}
 		env = env->next;
 	}
