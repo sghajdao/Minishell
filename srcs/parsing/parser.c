@@ -8,7 +8,7 @@ void	parser(t_mini *mini)
 	line = lexer(mini);
 	if (!line)
 		return ;
-	mini->start = tokenizer(line);
+	mini->start = tokenizer(line, mini);
 	ft_memdel(line);
 	connect_loops(mini);
 	token = mini->start;
