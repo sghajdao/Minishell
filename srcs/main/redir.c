@@ -61,8 +61,7 @@ void	heredoc(t_mini *mini, t_token *token)
 		line = readline("> ");
 		if (!line)
 		{
-			g_sig.sigint = 1;
-			g_sig.exit_status = 1;
+			mini->ret = 1;
 			mini->no_exec = 1;
 			break ;
 		}
