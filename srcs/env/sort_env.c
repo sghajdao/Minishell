@@ -36,22 +36,38 @@ void	env_sort(char **tab, int env_len)
 	}
 }
 
+void	add_quotes_to_value(char **tab)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (tab[i])
+	{
+		ft_putstr("declare -x ");
+		j = 0;
+		while (tab[i][j] != '=' && tab[i][j])
+		{
+			write(1, &tab[i][j], 1);
+			j++;
+		}
+		write(1, "=\"", 2);
+		while (tab[i][++j])
+			write(1, &tab[i][j], 1);
+		write(1, "\"\n", 2);
+		i++;
+	}
+}
+
 void	print_env_sorted(t_env *env)
 {
 	char	**tab;
 	char	*str_env;
-	int		i;
 
 	str_env = envToString(env);
 	tab = ft_split(str_env, '\n');
 	ft_memdel(str_env);
 	env_sort(tab, envStrLen(tab));
-	i = 0;
-	while (tab[i])
-	{
-		ft_putstr("declare -x ");
-		ft_putendl(tab[i]);
-		i++;
-	}
+	add_quotes_to_value(tab);
 	freeing_tab(tab);
 }
