@@ -63,8 +63,11 @@ int	already_exist_in_env(t_env *env, char *args)
 		get_env_name(env_name, env->value);
 		if (ft_strcmp(var_name, env_name) == 0)
 		{
-			ft_memdel(env->value);
-			env->value = ft_strdup(args);
+			if (ft_search(args, '='))
+			{
+				ft_memdel(env->value);
+				env->value = ft_strdup(args);
+			}
 			return (1);
 		}
 		env = env->next;
@@ -122,7 +125,7 @@ int	ft_export(char **args, t_env *env, t_env *secret)
 				if  (print_error(error_ret, args[i]) == ERROR)
 				{
 					i++;
-					continue;
+					continue ;
 				}
 			}
 			if (error_ret == 2)
