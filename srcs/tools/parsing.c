@@ -1,14 +1,14 @@
 #include "minishell.h"
 
-int	ft_isseparator(char *line, int i)
+int	ft_isseparator(char *line, int i, t_mini *mini)
 {
-	if (ft_strchr("<>|", line[i]) && isQuoteOpen(line, i) == 0)
+	if (ft_strchr("<>|", line[i]) && isQuoteOpen(line, i, mini) == 0)
 		return (1);
 	else
 		return (0);
 }
 
-int	isQuoteOpen(char *line, int index)
+int	isQuoteOpen(char *line, int index, t_mini *mini)
 {
 	int	i;
 	int	open;
@@ -22,9 +22,15 @@ int	isQuoteOpen(char *line, int index)
 		else if (open == 0 && line[i] == '\'')
 			open = 2;
 		else if (open == 1 && line[i] == '\"')
+		{
+			mini->type_quotes = 1;
 			open = 0;
+		}
 		else if (open == 2 && line[i] == '\'')
+		{
+			mini->type_quotes = 2;
 			open = 0;
+		}
 		i++;
 	}
 	return (open);
@@ -49,8 +55,8 @@ int	check_syntax(t_mini *mini, t_token *token)
 {
 	while (token)
 	{
-		if (hasAtypeOf(token, "TAI")
-		&& (!token->next || hasAtypeOf(token->next, "TAIP")))
+		if (hasAtypeOf(token, "THAI")
+		&& (!token->next || hasAtypeOf(token->next, "THAIP")))
 		{
 			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
 			if (token->next)
