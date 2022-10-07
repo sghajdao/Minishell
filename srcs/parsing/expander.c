@@ -32,7 +32,7 @@ static void		var_inserting(t_expander *ex, char *arg, t_env *env, int ret)
 	}
 }
 
-char			*expander(char *arg, t_env *env, int ret)
+char	*expander(char *arg, t_env *env, int ret)
 {
 	t_expander	ex;
 	int			new_arg_len;
