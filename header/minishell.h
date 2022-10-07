@@ -59,6 +59,7 @@ typedef struct s_mini
 	t_token	*start;
 	t_env	*env;
 	t_env	*copy_env;
+	int		type_quotes;
 	int		in;
 	int		out;
 	int		fdin;
@@ -128,9 +129,9 @@ void	parser(t_mini *mini);
 t_token	*tokenizer(char *line, t_mini *mini);
 void	connect_loops(t_mini *mini);
 int		is_last_arg(t_token *token);
-int		isQuoteOpen(char *line, int index);
+int	isQuoteOpen(char *line, int index, t_mini *mini);
 void	type_arg_parsing(t_token *token, int separator);
-int		ft_isseparator(char *line, int i);
+int	ft_isseparator(char *line, int i, t_mini *mini);
 int		transcend_separ(char *line, int i);
 char    *lexer(t_mini *mini);
 
