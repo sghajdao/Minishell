@@ -40,7 +40,10 @@ void	execution_center(t_mini *mini, t_token *token)
 	cmd = cmd_tab(token);
 	while (cmd && cmd[i])
 	{
-		cmd[i] = expander(cmd[i], mini->env, mini->ret);
+		if (mini->type_quotes == 0 || mini->type_quotes == 1)
+			cmd[i] = expander(cmd[i], mini->env, mini->ret);
+		else
+			cmd[i] = ft_strdup(cmd[i]);
 		i++;
 	}
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)
