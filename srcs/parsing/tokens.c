@@ -108,11 +108,12 @@ t_token	*get_next_token(char *line, int *i)
 	return (token);
 }
 
-t_token	*tokenizer(char *line)
+t_token	*tokenizer(char *line, t_mini *mini)
 {
 	t_token	*previous;
 	t_token	*next;
 	int		i;
+	char	*copy;
 
 	next = NULL;
 	previous = NULL;
@@ -121,6 +122,10 @@ t_token	*tokenizer(char *line)
 	while (line[i])
 	{
 		next = get_next_token(line, &i);
+		copy = ft_strdup(next->str);
+		free(next->str);
+		next->str = expander(copy, mini->env, mini->ret);
+		free(copy);
 		next->prev = previous;
 		if (previous)
 			previous->next = next;
