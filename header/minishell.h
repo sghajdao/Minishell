@@ -125,7 +125,7 @@ void	ft_exit(t_mini *mini, char **cmd);
 ** PARSING
 */
 void	parser(t_mini *mini);
-t_token	*tokenizer(char *line);
+t_token	*tokenizer(char *line, t_mini *mini);
 void	connect_loops(t_mini *mini);
 int		is_last_arg(t_token *token);
 int		isQuoteOpen(char *line, int index);
