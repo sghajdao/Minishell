@@ -38,20 +38,34 @@ void	input(t_mini *mini, t_token *token)
 	dup2(mini->fdin, STDIN);
 }
 
+void	handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		close(0);
+		write(2, "\n", 1);
+	}
+}
+
 void	heredoc(t_mini *mini, t_token *token)
 {
 	char	*line;
 	int		fd[2];
 
 	line = NULL;
-	(void)mini;
 	pipe(fd);
+	signal(SIGINT, handler);
 	while (1)
 	{
 		free(line);
 		line = readline("> ");
 		if (!line)
+		{
+			g_sig.sigint = 1;
+			g_sig.exit_status = 1;
+			mini->no_exec = 1;
 			break ;
+		}
 		if (ft_strncmp(line, token->str, ft_strlen(token->str)) == 0 \
 				&& line[ft_strlen(token->str)] == '\0')
 			break ;
