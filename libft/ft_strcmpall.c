@@ -14,7 +14,9 @@
 
 int ft_strcmpall(char *str, int start, int c)
 {
-    while (str[start] && str[start] == c)
+    if (!str[start])
+		return (1);
+	while (str[start] && str[start] == c)
         start++;
     if (str[start] == '\0' && str[start - 1] != '0')
         return (0);
