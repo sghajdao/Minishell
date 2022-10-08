@@ -15,7 +15,7 @@ char	**cmd_tab(t_token *start)
 		token = token->next;
 		i++;
 	}
-	if (!(tab = malloc(sizeof(char *) * i)))
+	if (!(tab = malloc(BUFF_SIZE)))
 		return (NULL);
 	token = start->next;
 	tab[0] = start->str;
