@@ -97,7 +97,7 @@ void	output(t_mini *mini, t_token *token, int type);
 void	input(t_mini *mini, t_token *token);
 void	heredoc(t_mini *mini, t_token *token);
 int		minipipe(t_mini *mini);
-char	*expander(char *arg, t_env *env, int ret);
+char	*expander(char *arg, t_mini *mini);
 
 /*
 ** EXEC
