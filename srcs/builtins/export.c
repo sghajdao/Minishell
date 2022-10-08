@@ -83,6 +83,8 @@ void	concat(char **env, t_env *e)
 	char	*copy;
 
 	to_add = malloc(sizeof(char) * ft_strlen(ft_strchr(*env, '+')));
+	if (!to_add)
+		return ;
 	to_add = ft_strdup(ft_strchr(*env, '+') + 2);
 	get_env_name(name, *env);
 	old_value = get_env_value(name, e);
