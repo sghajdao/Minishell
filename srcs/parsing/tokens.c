@@ -113,7 +113,6 @@ t_token	*tokenizer(char *line, t_mini *mini)
 	t_token	*previous;
 	t_token	*next;
 	int		i;
-	char	*copy;
 
 	next = NULL;
 	(void)mini;
@@ -123,13 +122,6 @@ t_token	*tokenizer(char *line, t_mini *mini)
 	while (line[i])
 	{
 		next = get_next_token(line, &i);
-		if (mini->type_quotes == 1 || mini->type_quotes == 0)
-		{
-			copy = ft_strdup(next->str);
-			free(next->str);
-			next->str = expander(copy, mini->env, 	mini->ret);
-			free(copy);
-		}
 		next->prev = previous;
 		if (previous)
 			previous->next = next;
