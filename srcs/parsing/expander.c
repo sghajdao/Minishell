@@ -32,14 +32,14 @@ static void		var_inserting(t_expander *ex, char *arg, t_env *env, int ret)
 	}
 }
 
-char	*expander(char *arg, t_env *env, int ret)
+char	*expander(char *arg, t_mini *mini)
 {
 	t_expander	ex;
 	int			new_arg_len;
 
 	if (!arg)
 		return (NULL);
-	new_arg_len = cmdsLenForAlloc(arg, env, ret);
+	new_arg_len = cmdsLenForAlloc(arg, mini->env, mini->ret);
 	if (!(ex.new_arg = malloc(BUFF_SIZE)))
 		return (NULL);
 	ex.i = 0;
@@ -53,7 +53,7 @@ char	*expander(char *arg, t_env *env, int ret)
 			&& arg[ex.j] != '?')
 				ex.new_arg[ex.i++] = '$';
 			else
-				var_inserting(&ex, arg, env, ret);
+				var_inserting(&ex, arg, mini->env, mini->ret);
 		}
 		ex.new_arg[ex.i++] = arg[ex.j++];
 	}
