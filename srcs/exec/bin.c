@@ -37,8 +37,10 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 	ret = SUCCESS;
 	g_sig.pid = fork();
 	run_signals(2);
+	signal(SIGINT, SIG_IGN);
 	if (g_sig.pid == 0)
 	{
+		signal(SIGINT,SIG_DFL);
 		ptr = envToString(env);
 		env_array = ft_split(ptr, '\n');
 		ft_memdel(ptr);
@@ -51,6 +53,7 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 	}
 	else
 		waitpid(g_sig.pid, &ret, 0);
+	signal(SIGINT, run_signals);
 	if (g_sig.sigint == 1 || g_sig.sigquit == 1)
 		return (g_sig.exit_status);
 	if (ret == 32512 || ret == 32256)
