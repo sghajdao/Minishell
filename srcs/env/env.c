@@ -23,7 +23,7 @@ char	*envToString(t_env *lst)
 	int		j;
 	char	*env;
 
-	if (!(env = malloc(sizeof(char) * envlen(lst) + 1)))
+	if (!(env = malloc(BUFF_SIZE)))
 		return (NULL);
 	i = 0;
 	while (lst && lst->next != NULL)
@@ -52,7 +52,7 @@ int	init_env(t_mini *mini, char **env_array)
 	t_env	*new;
 	int		i;
 
-	if (!(env = malloc(sizeof(t_env))))
+	if (!(env = malloc(BUFF_SIZE)))
 		return (1);
 	if (!*env_array)
 	{
