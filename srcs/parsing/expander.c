@@ -37,8 +37,10 @@ char	*expander(char *arg, t_env *env, int ret)
 	t_expander	ex;
 	int			new_arg_len;
 
+	if (!arg)
+		return (NULL);
 	new_arg_len = cmdsLenForAlloc(arg, env, ret);
-	if (!(ex.new_arg = malloc(sizeof(char) * new_arg_len + 1)))
+	if (!(ex.new_arg = malloc(BUFF_SIZE)))
 		return (NULL);
 	ex.i = 0;
 	ex.j = 0;
