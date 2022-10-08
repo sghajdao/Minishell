@@ -3,7 +3,7 @@
 void	ft_exit(t_mini *mini, char **cmd)
 {
 	mini->exit = 1;
-	ft_putstr_fd("exit ", STDERR);
+	ft_putendl_fd("exit ", STDERR);
 	if (cmd[1] && cmd[2])
 	{
 		mini->ret = 1;
