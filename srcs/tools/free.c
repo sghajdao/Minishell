@@ -2,6 +2,8 @@
 
 void	freeing_token(t_token *start)
 {
+	if (!start)
+		return ;
 	while (start && start->next)
 	{
 		ft_memdel(start->str);
@@ -19,6 +21,8 @@ void	freeing_env(t_env *env)
 {
 	t_env	*tmp;
 
+	if (!env)
+		return ;
 	while (env && env->next)
 	{
 		tmp = env;
@@ -35,6 +39,8 @@ void	freeing_tab(char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab || !*tab)
+		return ;
 	while (tab[i])
 	{
 		if (tab[i])
