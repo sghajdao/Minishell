@@ -69,6 +69,8 @@ char    *lexer(t_mini *mini)
 		add_history(line);
 	else if (!line)
 		run_signals(3);
+	if (g_sig.sigint == 1)
+		mini->ret = g_sig.exit_status;
 	if (check_quote(mini, &line))
 		return (NULL);
 	line = addSpaceBetweenCmds(line, mini);
