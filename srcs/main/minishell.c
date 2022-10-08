@@ -70,6 +70,7 @@ int	main(int ac, char **av, char **env)
 	mini.exit = 0;
 	mini.ret = 0;
 	mini.no_exec = 0;
+	mini.type_quotes = 0;
 	reset_all_fds(&mini);
 	init_env(&mini, env);
 	init_copy_env(&mini, env);
