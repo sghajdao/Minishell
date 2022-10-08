@@ -41,7 +41,7 @@ void	execution_center(t_mini *mini, t_token *token)
 	while (cmd && cmd[i])
 	{
 		if (mini->type_quotes == 0 || mini->type_quotes == 1)
-			cmd[i] = expander(cmd[i], mini->env, mini->ret);
+			cmd[i] = expander(cmd[i], mini);
 		else
 			cmd[i] = ft_strdup(cmd[i]);
 		i++;
