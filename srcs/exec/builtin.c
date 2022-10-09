@@ -23,7 +23,7 @@ int	builtin_executor(char **args, t_mini *mini)
 
 	result = 0;
 	if (ft_strcmp(args[0], "cd") == 0)
-		result = ft_cd(args, mini->env);
+		result = ft_cd(args, mini);
 	if (ft_strcmp(args[0], "echo") == 0)
 		result = ft_echo(args);
 	if (ft_strcmp(args[0], "env") == 0)
