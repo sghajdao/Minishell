@@ -46,6 +46,20 @@ char	*env_to_string(t_env *lst)
 	return (env);
 }
 
+static void	if_no_env(t_env **env, t_mini *mini, int flag)
+{
+	(*env)->value = ft_strdup("PATH=/usr/bin:/bin:/usr/sbin:/sbin");
+	(*env)->next = malloc(sizeof(t_env));
+	(*env)->next->value = ft_strdup("SHLVL=1");
+	(*env)->next->next = malloc(sizeof(t_env));
+	(*env)->next->next->value = ft_strjoin("PWD=", get_pwd());
+	(*env)->next->next->next = NULL;
+	if (flag == 0)
+		mini->env = *env;
+	else
+		mini->copy_env = *env;
+}
+
 int	init_env(t_mini *mini, char **env_array)
 {
 	t_env	*env;
@@ -56,13 +70,7 @@ int	init_env(t_mini *mini, char **env_array)
 		return (1);
 	if (!*env_array)
 	{
-		env->value = ft_strdup("PATH=/usr/bin:/bin:/usr/sbin:/sbin");
-		env->next = malloc(sizeof(t_env));
-		env->next->value = ft_strdup("SHLVL=1");
-		env->next->next = malloc(sizeof(t_env));
-		env->next->next->value = ft_strjoin("PWD=", get_pwd());
-		env->next->next->next = NULL;
-		mini->env = env;
+		if_no_env(&env, mini, 0);
 		return (0);
 	}
 	env->value = ft_strdup(env_array[0]);
@@ -71,6 +79,11 @@ int	init_env(t_mini *mini, char **env_array)
 	i = 1;
 	while (env_array && env_array[0] && env_array[i])
 	{
+		if (ft_strncmp(env_array[i], "OLDPWD=", 7) == 0)
+		{
+			i++;
+			continue ;
+		}
 		if (!(new = malloc(sizeof(t_env))))
 			return (1);
 		new->value = ft_strdup(env_array[i]);
@@ -88,17 +101,11 @@ int	init_copy_env(t_mini *mini, char **env_array)
 	t_env	*env;
 	t_env	*new;
 
-	if (!(env = malloc(sizeof(t_env))))
+	if (!(env = malloc(BUFF_SIZE)))
 		return (1);
 	if (!*env_array)
 	{
-		env->value = ft_strdup("PATH=/usr/bin:/bin:/usr/sbin:/sbin");
-		env->next = malloc(sizeof(t_env));
-		env->next->value = ft_strdup("SHLVL=1");
-		env->next->next = malloc(sizeof(t_env));
-		env->next->next->value = ft_strjoin("PWD=", get_pwd());
-		env->next->next->next = NULL;
-		mini->copy_env = env;
+		if_no_env(&env, mini, 1);
 		return (0);
 	}
 	env->value = ft_strdup(env_array[0]);
@@ -107,6 +114,11 @@ int	init_copy_env(t_mini *mini, char **env_array)
 	i = 1;
 	while (env_array && env_array[0] && env_array[i])
 	{
+		if (ft_strncmp(env_array[i], "OLDPWD=", 7) == 0)
+		{
+			i++;
+			continue ;
+		}
 		if (!(new = malloc(sizeof(t_env))))
 			return (1);
 		new->value = ft_strdup(env_array[i]);
