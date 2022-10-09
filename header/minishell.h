@@ -139,7 +139,7 @@ char    *lexer(t_mini *mini);
 ** ENV
 */
 int		check_syntax(t_mini *mini, t_token *token);
-char	*envToString(t_env *lst);
+char	*env_to_string(t_env *lst);
 int		init_env(t_mini *mini, char **env_array);
 int		init_copy_env(t_mini *mini, char **env_array);
 char	*get_env_value(char *arg, t_env *env);
