@@ -1,8 +1,9 @@
 #include "minishell.h"
 
-int	ft_pwd(void)
+int	ft_pwd(t_mini *mini)
 {
 	char	cwd[PATH_MAX];
+	char	*pwd;
 
 	if (getcwd(cwd, PATH_MAX))
 	{
@@ -10,14 +11,19 @@ int	ft_pwd(void)
 		return (SUCCESS);
 	}
 	else
+	{
+		pwd = get_env_value("PWD", mini->env);
+		printf("%s\n", pwd);
+		free(pwd);
 		return (ERROR);
+	}
 }
 
 char	*get_pwd(void)
 {
 	char	*cwd;
 
-	cwd = malloc(sizeof(char) * 1000);
+	cwd = malloc(BUFF_SIZE);
 	if (!cwd)
 		return (NULL);
 	if (getcwd(cwd, PATH_MAX))
