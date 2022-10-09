@@ -64,7 +64,7 @@ void	print_env_sorted(t_env *env)
 	char	**tab;
 	char	*str_env;
 
-	str_env = envToString(env);
+	str_env = env_to_string(env);
 	tab = ft_split(str_env, '\n');
 	ft_memdel(str_env);
 	env_sort(tab, envStrLen(tab));
