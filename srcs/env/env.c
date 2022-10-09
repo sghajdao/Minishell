@@ -17,7 +17,7 @@ size_t	envlen(t_env *lst)
 	return (lst_len);
 }
 
-char	*envToString(t_env *lst)
+char	*env_to_string(t_env *lst)
 {
 	int		i;
 	int		j;
