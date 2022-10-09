@@ -37,7 +37,8 @@ void	secret_unset(char **a, t_mini *mini)
 		i = 1;
 		while (a[i])
 		{
-			if (ft_strncmp(a[i], env->next->value, env_name_size(env->next->value)) == 0)
+			if (ft_strncmp(a[i], env->next->value, \
+				env_name_size(env->next->value)) == 0)
 			{
 				tmp = env->next->next;
 				delete_node(mini, env->next);
@@ -64,7 +65,8 @@ int	ft_unset(char **a, t_mini *mini)
 		i = 1;
 		while (a[i])
 		{
-			if (ft_strncmp(a[i], env->next->value, env_name_size(env->next->value)) == 0)
+			if (ft_strncmp(a[i], env->next->value, \
+				env_name_size(env->next->value)) == 0)
 			{
 				tmp = env->next->next;
 				delete_node(mini, env->next);
