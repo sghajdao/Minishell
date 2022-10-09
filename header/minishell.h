@@ -112,7 +112,7 @@ int		is_builtin_cmd(char	*command);
 */
 int		ft_echo(char **args);
 int		ft_cd(char **args, t_mini *mini);
-int		ft_pwd(void);
+int		ft_pwd(t_mini *mini);
 char	*get_pwd(void);
 int		ft_export(char **args, t_env *env, t_env *secret);
 int		ft_env(t_env *env);
