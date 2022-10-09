@@ -31,7 +31,7 @@ int	builtin_executor(char **args, t_mini *mini)
 	if (ft_strcmp(args[0], "export") == 0)
 		ft_export(args, mini->env, mini->copy_env);
 	if (ft_strcmp(args[0], "pwd") == 0)
-		result = ft_pwd();
+		result = ft_pwd(mini);
 	if (ft_strcmp(args[0], "unset") == 0)
 		ft_unset(args, mini);
 	return (result);
