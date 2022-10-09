@@ -42,7 +42,7 @@ static char	*getPathFromEnv(t_env *env, const char *var, size_t len)
 	return (NULL);
 }
 
-static int	update_oldpwd(t_env *env)
+static int	update_oldpwd(t_mini *mini)
 {
 	char	*oldpwd;
 	char	cwd[PATH_MAX];
@@ -52,13 +52,15 @@ static int	update_oldpwd(t_env *env)
 	oldpwd = ft_strjoin("OLDPWD=", cwd);
 	if (!oldpwd)
 		return (ERROR);
-	if (already_exist_in_env(env, oldpwd) == 0)
-		add_to_env(oldpwd, env);
+	if (already_exist_in_env(mini->env, oldpwd) == 0)
+		add_to_env(oldpwd, mini->env);
+	if (already_exist_in_env(mini->copy_env, oldpwd) == 0)
+		add_to_env(oldpwd, mini->copy_env);
 	ft_memdel(oldpwd);
 	return (SUCCESS);
 }
 
-static int	change_directory(int option, t_env *env)
+static int	change_directory(int option, t_env *env, t_mini *mini)
 {
 	int		ret;
 	char	*env_path;
@@ -66,7 +68,7 @@ static int	change_directory(int option, t_env *env)
 	env_path = NULL;
 	if (option == 0)
 	{
-		update_oldpwd(env);
+		update_oldpwd(mini);
 		env_path = getPathFromEnv(env, "HOME", 4);
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: HOME not set", STDERR);
@@ -80,25 +82,43 @@ static int	change_directory(int option, t_env *env)
 			ft_putendl_fd("minishell : cd: OLDPWD not set", STDERR);
 		if (!env_path)
 			return (ERROR);
-		update_oldpwd(env);
+		update_oldpwd(mini);
 	}
 	ret = chdir(env_path);
 	ft_memdel(env_path);
 	return (ret);
 }
 
-int	ft_cd(char **args, t_env *env)
+void	updat_pwd(t_mini *mini)
+{
+	char	*pwd;
+	char	cwd[PATH_MAX];
+
+	if (getcwd(cwd, PATH_MAX) == NULL)
+		return ;
+	pwd = ft_strjoin("PWD=", cwd);
+	if (!pwd)
+		return ;
+	if (already_exist_in_env(mini->env, pwd) == 0)
+		add_to_env(pwd, mini->env);
+	if (already_exist_in_env(mini->copy_env, pwd) == 0)
+		add_to_env(pwd, mini->copy_env);
+	ft_memdel(pwd);
+}
+
+int	ft_cd(char **args, t_mini *mini)
 {
 	int	cd_ret;
 
 	if (!args[1])
-		return (change_directory(0, env));
+		return (change_directory(0, mini->env, mini));
 	if (ft_strcmp(args[1], "-") == 0)
-		cd_ret = change_directory(1, env);
+		cd_ret = change_directory(1, mini->env, mini);
 	else
 	{
-		update_oldpwd(env);
+		update_oldpwd(mini);
 		cd_ret = chdir(args[1]);
+		updat_pwd(mini);
 		if (cd_ret < 0)
 			cd_ret *= -1;
 		if (cd_ret != 0)
