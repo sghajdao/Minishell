@@ -39,7 +39,7 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 	run_signals(2);
 	if (g_sig.pid == 0)
 	{
-		ptr = envToString(env);
+		ptr = env_to_string(env);
 		env_array = ft_split(ptr, '\n');
 		ft_memdel(ptr);
 		if (ft_strchr(path, '/') != NULL)
