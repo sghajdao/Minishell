@@ -75,6 +75,7 @@ int	main(int ac, char **av, char **env)
 	init_env(&mini, env);
 	init_copy_env(&mini, env);
 	increment_shlvl(mini.env);
+	increment_shlvl(mini.copy_env);
 	while (mini.exit == 0)
 	{
 		mini.type_quotes = 0;
