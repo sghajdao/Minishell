@@ -37,8 +37,10 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 	ret = SUCCESS;
 	g_sig.pid = fork();
 	run_signals(2);
+	signal(SIGINT, SIG_IGN);
 	if (g_sig.pid == 0)
 	{
+		signal(SIGINT,SIG_DFL);
 		ptr = env_to_string(env);
 		env_array = ft_split(ptr, '\n');
 		ft_memdel(ptr);
@@ -59,6 +61,7 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 		ret = !!ret;
 	return (ret);
 }
+
 
 char	*path_join(const char *s1, const char *s2)
 {
