@@ -60,39 +60,38 @@ void	handler(int sig)
 	}
 }
 
-void	heredoc(t_mini *mini, t_token *token)
+void	ft_heredoc(t_token **lst)
 {
-	char	*line;
-	int		fd[2];
-	int		old;
+	static int i;
+	char *file_name;
+	t_token	*tmp;
+	char *line;
+	int fd;
+	tmp = *lst;
 
-	line = NULL;
-	old = dup(0);
-	pipe(fd);
-	signal(SIGINT, handler);
-	while (1)
+	while (tmp)
 	{
-		free(line);
-		line = readline("> ");
-		if (!line)
+		if (tmp && tmp->type == 5)
 		{
-			mini->ret = 1;
-			mini->no_exec = 1;
-			break ;
+			file_name = ft_strjoin("/tmp/text", ft_itoa(i));
+			fd = open(file_name , O_APPEND | O_WRONLY | O_CREAT, 0644);
+			while (1)
+			{
+				line = readline("> ");
+				if (!ft_strcmp(line, tmp->next->str))
+				{
+						// leaks here
+						tmp->type = INPUT;
+						tmp->str = ft_strdup("<");
+						tmp->next->str = file_name;
+						i++;
+						break;
+				}
+				write(fd, ft_strjoin(line, ft_strdup("\n")), ft_strlen(line) + 1);
+			}
 		}
-		if (ft_strncmp(line, token->str, ft_strlen(token->str)) == 0 \
-				&& line[ft_strlen(token->str)] == '\0')
-			break ;
-		ft_putendl_fd(line, fd[1]);
-		if (ft_strlen(line))
-			free(line);
-		line = NULL;
+		tmp = tmp->next;
 	}
-	dup2(fd[0], 0);
-	close(fd[1]);
-	close(fd[0]);
-	close(old);
-	free(line);
 }
 
 int	minipipe(t_mini *mini)
