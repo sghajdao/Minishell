@@ -2,12 +2,12 @@
 
 void	ft_exit(t_mini *mini, char **cmd)
 {
-	mini->exit = 1;
 	ft_putendl_fd("exit ", STDERR);
-	if (cmd[1] && cmd[2])
+	if (cmd[1] && cmd[2] && ft_strisnum(cmd[1]))
 	{
 		mini->ret = 1;
 		ft_putendl_fd("minishell: exit: too many arguments", STDERR);
+		return ;
 	}
 	else if (cmd[1] && ft_strisnum(cmd[1]) == 0)
 	{
@@ -20,4 +20,5 @@ void	ft_exit(t_mini *mini, char **cmd)
 		mini->ret = ft_atoi(cmd[1]);
 	else
 		mini->ret = 0;
+	mini->exit = 1;
 }
