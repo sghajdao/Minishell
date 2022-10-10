@@ -13,10 +13,6 @@ void	exec_and_redir(t_mini *mini, t_token *token)
 		output(mini, token, TRUNC);
 	else if (ft_istype(previous, APPEND))
 		output(mini, token, APPEND);
-	else if (ft_istype(previous, HEREDOC))
-	{
-		heredoc(mini, token);
-	}
 	else if (ft_istype(previous, INPUT))
 		input(mini, token);
 	else if (ft_istype(previous, PIPE))
