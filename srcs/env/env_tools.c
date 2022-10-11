@@ -46,12 +46,6 @@ char	*env_to_string(t_env *lst)
 	return (env);
 }
 
-void	ft_lstadd_front_env(t_env **lst, t_env *new)
-{
-	new->next = *lst;
-	*lst = new;
-}
-
 void	ft_lstadd_back_env(t_env **alst, t_env *new)
 {
 	t_env	*p;
