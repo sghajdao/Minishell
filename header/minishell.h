@@ -151,6 +151,8 @@ int		is_valid_env_str(const char *env);
 void	print_env_sorted(t_env *env);
 void	increment_shlvl(t_env *env);
 size_t	envlen(t_env *lst);
+void	ft_lstadd_back_env(t_env **alst, t_env *new);
+t_env	*ft_lstnew_env(void *content);
 
 /*
 ** FD TOOLS
