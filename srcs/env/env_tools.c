@@ -45,3 +45,36 @@ char	*env_to_string(t_env *lst)
 	env[i] = '\0';
 	return (env);
 }
+
+void	ft_lstadd_front_env(t_env **lst, t_env *new)
+{
+	new->next = *lst;
+	*lst = new;
+}
+
+void	ft_lstadd_back_env(t_env **alst, t_env *new)
+{
+	t_env	*p;
+
+	if (!*alst)
+		*alst = new;
+	else
+	{
+		p = *alst;
+		while (p -> next)
+			p = p -> next;
+		p -> next = new;
+	}
+}
+
+t_env	*ft_lstnew_env(void *content)
+{
+	t_env	*c;
+
+	c = (t_env *)malloc(BUFF_SIZE);
+	if (!c)
+		return (NULL);
+	c -> value = ft_strdup(content);
+	c -> next = NULL;
+	return (c);
+}
