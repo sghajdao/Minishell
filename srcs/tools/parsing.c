@@ -68,7 +68,7 @@ int	check_syntax(t_mini *mini, t_token *token)
 			return (0);
 		}
 		if (hasAtypeOf(token, "PE")
-		&& (!token->prev || !token->next || hasAtypeOf(token->prev, "TAIP")))
+		&& (!token->prev || !token->next || hasAtypeOf(token->prev, "THAIP")))
 		{
 			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
 			ft_putstr_fd(token->str, STDERR);
