@@ -79,9 +79,16 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 			fd = open(file_name , O_CREAT | O_TRUNC | O_WRONLY, 0644);
 			ft_lstadd_back(&mini->file, ft_lstnew(file_name));
 			mini->heredoc = 1;
+			signal(SIGINT, handler);
 			while (1)
 			{
 				line = readline("> ");
+				if (!line)
+				{
+					mini->ret = 1;
+					mini->no_exec = 1;
+					break ;
+				}
 				if (!ft_strcmp(line, tmp->next->str))
 				{
 					// leaks here
