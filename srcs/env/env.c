@@ -1,32 +1,5 @@
 #include "minishell.h"
 
-void	ft_lstadd_back_env(t_env **alst, t_env *new)
-{
-	t_env	*p;
-
-	if (!*alst)
-		*alst = new;
-	else
-	{
-		p = *alst;
-		while (p -> next)
-			p = p -> next;
-		p -> next = new;
-	}
-}
-
-t_env	*ft_lstnew_env(void *content)
-{
-	t_env	*c;
-
-	c = (t_env *)malloc(BUFF_SIZE);
-	if (!c)
-		return (NULL);
-	c -> value = ft_strdup(content);
-	c -> next = NULL;
-	return (c);
-}
-
 static void	if_no_env(t_env **env, t_mini *mini, int flag)
 {
 	char	*pwd;
@@ -48,15 +21,13 @@ int	init_env(t_mini *mini, char **env_array)
 	t_env	*env;
 	int		i;
 
-	i = 0;
+	i = 1;
 	if (!*env_array)
 	{
 		if_no_env(&env, mini, 0);
 		return (0);
 	}
-	env = malloc(BUFF_SIZE);
-	env->value = ft_strdup(env_array[0]);
-	env->next = NULL;
+	env = ft_lstnew_env(env_array[0]);
 	mini->env = env;
 	while (env_array[i])
 	{
@@ -76,15 +47,13 @@ int	init_copy_env(t_mini *mini, char **env_array)
 	t_env	*env;
 	int		i;
 
-	i = 0;
+	i = 1;
 	if (!*env_array)
 	{
 		if_no_env(&env, mini, 1);
 		return (0);
 	}
-	env = malloc(BUFF_SIZE);
-	env->value = ft_strdup(env_array[0]);
-	env->next = NULL;
+	env = ft_lstnew_env(env_array[0]);
 	mini->copy_env = env;
 	while (env_array[i])
 	{
