@@ -13,6 +13,7 @@ static void	print_cd_error(char **args)
 	ft_putendl_fd(args[1], 2);
 }
 
+
 static char	*getPathFromEnv(t_env *env, const char *var, size_t len)
 {
 	int		i;
@@ -87,6 +88,13 @@ static int	change_directory(int option, t_env *env)
 	return (ret);
 }
 
+void ft_print_msg(void)
+{
+	if (!getcwd(NULL, 0))
+		printf("cd: error retrieving current directory: getcwd: \
+			cannot access parent directories: No such file or directory\n");
+}
+
 int	ft_cd(char **args, t_env *env)
 {
 	int	cd_ret;
@@ -95,6 +103,8 @@ int	ft_cd(char **args, t_env *env)
 		return (change_directory(0, env));
 	if (ft_strcmp(args[1], "-") == 0)
 		cd_ret = change_directory(1, env);
+	if (ft_strcmp(args[1], ".") == 0)
+		ft_print_msg();
 	else
 	{
 		update_oldpwd(env);
