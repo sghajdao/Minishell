@@ -74,11 +74,20 @@ int	main(int ac, char **av, char **env)
 	increment_shlvl(mini.copy_env);
 	while (mini.exit == 0)
 	{
+		mini.heredoc = 0;
 		mini.type_quotes = 0;
 		sig_init();
 		parser(&mini);
 		if (mini.start != NULL && check_syntax(&mini, mini.start))
 			minishell(&mini);
+		if (mini.heredoc)
+		{
+			while (mini.file)
+			{
+				unlink(mini.file->content);
+				mini.file = mini.file->next;
+			}
+		}
 		freeing_token(mini.start);
 	}
 	freeing_env(mini.env);
