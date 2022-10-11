@@ -11,7 +11,6 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <limits.h>
-//# include <linux/limits.h>
 # include <errno.h>
 # include <signal.h>
 # include <readline/readline.h>
@@ -59,6 +58,8 @@ typedef struct s_mini
 	t_token	*start;
 	t_env	*env;
 	t_env	*copy_env;
+	t_list	*file;
+	int		heredoc;
 	int		type_quotes;
 	int		in;
 	int		out;
@@ -95,7 +96,7 @@ typedef struct s_expander
 */
 void	output(t_mini *mini, t_token *token, int type);
 void	input(t_mini *mini, t_token *token);
-void	ft_heredoc(t_token **lst);
+void	ft_heredoc(t_mini *mini, t_token **lst);
 int		minipipe(t_mini *mini);
 char	*expander(char *arg, t_mini *mini);
 
