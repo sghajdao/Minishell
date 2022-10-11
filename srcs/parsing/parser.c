@@ -10,7 +10,7 @@ void	parser(t_mini *mini)
 	if (!line)
 		return ;
 	mini->start = tokenizer(line, mini);
-	ft_heredoc(&mini->start);
+	ft_heredoc(mini, &mini->start);
 	tmp = mini->start;
 	ft_memdel(line);
 	connect_loops(mini);
