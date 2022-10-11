@@ -60,6 +60,11 @@ int	init_env(t_mini *mini, char **env_array)
 	mini->env = env;
 	while (env_array[i])
 	{
+		if (!ft_strncmp(env_array[i], "OLDPWD=", 7))
+		{
+			i++;
+			continue ;
+		}
 		ft_lstadd_back_env(&env, ft_lstnew_env(env_array[i]));
 		i++;
 	}
@@ -83,6 +88,11 @@ int	init_copy_env(t_mini *mini, char **env_array)
 	mini->copy_env = env;
 	while (env_array[i])
 	{
+		if (!ft_strncmp(env_array[i], "OLDPWD=", 7))
+		{
+			i++;
+			continue ;
+		}
 		ft_lstadd_back_env(&env, ft_lstnew_env(env_array[i]));
 		i++;
 	}
