@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+
 void	exec_and_redir(t_mini *mini, t_token *token)
 {
 	t_token	*previous;
@@ -13,10 +14,10 @@ void	exec_and_redir(t_mini *mini, t_token *token)
 		output(mini, token, TRUNC);
 	else if (ft_istype(previous, APPEND))
 		output(mini, token, APPEND);
-	else if (ft_istype(previous, HEREDOC))
+	/*else if (ft_istype(previous, HEREDOC))
 	{
 		heredoc(mini, token);
-	}
+	}*/
 	else if (ft_istype(previous, INPUT))
 		input(mini, token);
 	else if (ft_istype(previous, PIPE))
@@ -26,6 +27,7 @@ void	exec_and_redir(t_mini *mini, t_token *token)
 	if ((ft_istype(previous, PIPE) || !previous)
 		&& pipe != 1 && mini->no_exec == 0)
 		execution_center(mini, token);
+		//pipe modification input output
 }
 
 void	minishell(t_mini *mini)
@@ -70,6 +72,7 @@ int	main(int ac, char **av, char **env)
 	mini.exit = 0;
 	mini.ret = 0;
 	mini.no_exec = 0;
+	mini.type_quotes = 0;
 	reset_all_fds(&mini);
 	init_env(&mini, env);
 	init_copy_env(&mini, env);
