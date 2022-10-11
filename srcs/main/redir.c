@@ -60,7 +60,7 @@ void	handler(int sig)
 	}
 }
 
-void	ft_heredoc(t_token **lst)
+void	ft_heredoc(t_mini *mini, t_token **lst)
 {
 	static int i;
 	char *file_name;
@@ -73,19 +73,23 @@ void	ft_heredoc(t_token **lst)
 	{
 		if (tmp && tmp->type == 5)
 		{
+			if (!check_syntax(mini, tmp))
+				return ;
 			file_name = ft_strjoin("/tmp/text", ft_itoa(i));
-			fd = open(file_name , O_APPEND | O_WRONLY | O_CREAT, 0644);
+			fd = open(file_name , O_CREAT | O_TRUNC | O_WRONLY, 0644);
+			ft_lstadd_back(&mini->file, ft_lstnew(file_name));
+			mini->heredoc = 1;
 			while (1)
 			{
 				line = readline("> ");
 				if (!ft_strcmp(line, tmp->next->str))
 				{
-						// leaks here
-						tmp->type = INPUT;
-						tmp->str = ft_strdup("<");
-						tmp->next->str = file_name;
-						i++;
-						break;
+					// leaks here
+					tmp->type = INPUT;
+					tmp->str = ft_strdup("<");
+					tmp->next->str = file_name;
+					i++;
+					break;
 				}
 				write(fd, ft_strjoin(line, ft_strdup("\n")), ft_strlen(line) + 1);
 			}
