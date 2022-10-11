@@ -97,7 +97,7 @@ void	output(t_mini *mini, t_token *token, int type);
 void	input(t_mini *mini, t_token *token);
 void	ft_heredoc(t_token **lst);
 int		minipipe(t_mini *mini);
-char	*expander(char *arg, t_env *env, int ret);
+char	*expander(char *arg, t_mini *mini);
 
 /*
 ** EXEC
@@ -111,8 +111,8 @@ int		is_builtin_cmd(char	*command);
 ** BUILTINS
 */
 int		ft_echo(char **args);
-int		ft_cd(char **args, t_env *env);
-int		ft_pwd(void);
+int		ft_cd(char **args, t_mini *mini);
+int		ft_pwd(t_mini *mini);
 char	*get_pwd(void);
 int		ft_export(char **args, t_env *env, t_env *secret);
 int		ft_env(t_env *env);
@@ -139,7 +139,7 @@ char    *lexer(t_mini *mini);
 ** ENV
 */
 int		check_syntax(t_mini *mini, t_token *token);
-char	*envToString(t_env *lst);
+char	*env_to_string(t_env *lst);
 int		init_env(t_mini *mini, char **env_array);
 int		init_copy_env(t_mini *mini, char **env_array);
 char	*get_env_value(char *arg, t_env *env);
