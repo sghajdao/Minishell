@@ -4,11 +4,15 @@ void	parser(t_mini *mini)
 {
 	char	*line;
 	t_token	*token;
+	t_token	*tmp;
 
 	line = lexer(mini);
 	if (!line)
 		return ;
-	mini->start = tokenizer(line);
+
+	mini->start = tokenizer(line, mini);
+	ft_heredoc(&mini->start);
+	tmp = mini->start;
 	ft_memdel(line);
 	connect_loops(mini);
 	token = mini->start;
