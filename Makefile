@@ -46,7 +46,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo "\033[0;31m\nDeleting objects..."
+	@echo "\033[0;31m\nDeleting objects...\033[0;37m"
 	@make clean -C libft/
 	@rm -rf $(OBJ)
 
