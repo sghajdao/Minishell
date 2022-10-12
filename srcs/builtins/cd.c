@@ -108,6 +108,13 @@ void	updat_pwd(t_mini *mini)
 	ft_memdel(pwd);
 }
 
+void ft_print_msg(void)
+{
+	if (!getcwd(NULL, 0))
+		printf("cd: error retrieving current directory: getcwd: \
+			cannot access parent directories: No such file or directory\n");
+}
+
 int	ft_cd(char **args, t_mini *mini)
 {
 	int	cd_ret;
@@ -116,6 +123,8 @@ int	ft_cd(char **args, t_mini *mini)
 		return (change_directory(0, mini->env, mini));
 	if (ft_strcmp(args[1], "-") == 0)
 		cd_ret = change_directory(1, mini->env, mini);
+	if (ft_strcmp(args[1], ".") == 0)
+		ft_print_msg();
 	else
 	{
 		update_oldpwd(mini);
