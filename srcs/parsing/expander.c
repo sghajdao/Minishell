@@ -52,7 +52,7 @@ char	*expander(char *arg, t_mini *mini)
 			if ((arg[ex.j] == '\0' || ft_isalnum(arg[ex.j]) == 0)
 			&& arg[ex.j] != '?')
 				ex.new_arg[ex.i++] = '$';
-			else
+			else if (ft_counter(arg, '$') % 2 != 0)
 				var_inserting(&ex, arg, mini->env, mini->ret);
 		}
 		ex.new_arg[ex.i++] = arg[ex.j++];
