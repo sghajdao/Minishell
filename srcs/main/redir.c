@@ -112,6 +112,12 @@ int	minipipe(t_mini *mini)
 
 	pipe(pipefd);
 	pid = fork();
+	if (pid < 0)
+	{
+		ft_putendl_fd("minishell: fork: Resource temporarily unavailable", 2);
+		mini->no_exec = 1;
+		return (-1);
+	}
 	run_signals(2);
 	if (pid == 0)
 	{
