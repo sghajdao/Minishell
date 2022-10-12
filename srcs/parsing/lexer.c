@@ -65,7 +65,7 @@ char    *lexer(t_mini *mini)
 
     run_signals(1);
 	line = readline("MINISHELL$ ");
-	if (line && *line && line[0] != ' ')
+	if (line && *line)
 		add_history(line);
 	else if (!line)
 		run_signals(3);
