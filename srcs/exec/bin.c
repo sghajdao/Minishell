@@ -36,6 +36,8 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 
 	ret = SUCCESS;
 	g_sig.pid = fork();
+	if (g_sig.pid < 0)
+		return (1);
 	run_signals(2);
 	signal(SIGINT, SIG_IGN);
 	if (g_sig.pid == 0)
