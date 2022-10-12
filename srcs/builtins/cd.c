@@ -103,10 +103,8 @@ void	updat_pwd(t_mini *mini)
 	pwd = ft_strjoin("PWD=", cwd);
 	if (!pwd)
 		return ;
-	if (already_exist_in_env(mini->env, pwd) == 0)
-		add_to_env(pwd, mini->env);
-	if (already_exist_in_env(mini->copy_env, pwd) == 0)
-		add_to_env(pwd, mini->copy_env);
+	already_exist_in_env(mini->env, pwd);
+	already_exist_in_env(mini->copy_env, pwd);
 	ft_memdel(pwd);
 }
 
