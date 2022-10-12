@@ -19,30 +19,28 @@ size_t	envlen(t_env *lst)
 
 char	*env_to_string(t_env *lst)
 {
+	char	*env;
 	int		i;
 	int		j;
-	char	*env;
 
-	if (!(env = malloc(BUFF_SIZE)))
+	env = malloc(BUFF_SIZE);
+	if (!env)
 		return (NULL);
-	i = 0;
-	while (lst && lst->next != NULL)
+	j = 0;
+	while (lst)
 	{
-		if (lst->value != NULL)
+		i = 0;
+		while (lst->value[i])
 		{
-			j = 0;
-			while (lst->value[j])
-			{
-				env[i] = lst->value[j];
-				j++;
-				i++;
-			}
+			env[j] = lst->value[i];
+			j++;
+			i++;
 		}
-		if (lst->next->next != NULL)
-			env[i++] = '\n';
+		env[j] = '\n';
+		++j;
 		lst = lst->next;
 	}
-	env[i] = '\0';
+	env[j] = '\0';
 	return (env);
 }
 
