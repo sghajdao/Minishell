@@ -3,13 +3,17 @@
 static void	if_no_env(t_env **env, t_mini *mini, int flag)
 {
 	char	*pwd;
+	char	*get;
 
-	pwd = ft_strjoin("PWD=", get_pwd());
+	get = get_pwd();
+	pwd = ft_strjoin("PWD=", get);
+	free(get);
 	env = malloc(BUFF_SIZE);
 	ft_memset(env, 0, BUFF_SIZE);
 	ft_lstadd_back_env(env, ft_lstnew_env("PATH=/usr/bin:/bin:/usr/sbin:/sbin"));
 	ft_lstadd_back_env(env, ft_lstnew_env("SHLVL=1"));
 	ft_lstadd_back_env(env, ft_lstnew_env(pwd));
+	free(pwd);
 	if (flag == 0)
 		mini->env = *env;
 	else
