@@ -35,6 +35,10 @@ all: $(NAME)
 $(NAME): $(OBJECTS)
 	@$(AR) ${NAME} $?
 
+%.o: %.c libft.h
+	@printf "\033[0;33mGenerating libft objects... %-33.33s\r" $@
+	@${CC} ${CFLAGS} -c $< -o $@
+
 bonus: $(OBJECTSB)
 	@$(AR) $(NAME) $?
 
