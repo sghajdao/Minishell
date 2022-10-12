@@ -4,13 +4,13 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I header/ -I libft/
 
-LDFLAGS="-L/goinfre/sghajdao/homebrew/opt/readline/lib"
+LDFLAGS="-L/goinfre/akremcht/.brew/opt/readline/lib"
 
-CPPFLAGS="-I/goinfre/sghajdao/homebrew/opt/readline/include"
+CPPFLAGS="-I/goinfre/akremcht/.brew/opt/readline/include"
 
 LIBFT = libft/libft.a
 
-HEADER = minishell.h
+HEADER = ./header/minishell.h
 
 BUILTINS = cd echo env exit export pwd unset
 
@@ -38,13 +38,12 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "\n"
 	@make bonus -C libft/
-	@echo "\033[0;32mCompiling minishell..."
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(CPPFLAGS) $(LIBFT) $(LDFLAGS) -lreadline
-	@echo "\n\033[0mDone !"
+	@echo "\n\033[0;42mDone !"
 
-%.o: %.c HEADER
-	@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
-	@${CC} ${CFLAGS} -c $< -o $@
+%.o:%.c HEADER
+	@printf "\033[0;33mGenerating minishell objects... %-10.10s\r" $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@echo "\033[0;31m\nDeleting objects..."
