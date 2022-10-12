@@ -6,7 +6,7 @@ int	is_builtin_cmd(char *command)
 		return (1);
 	if (ft_strcmp(command, "echo") == 0)
 		return (1);
-	if (ft_strcmp(command, "env") == 0)
+	if (ft_strcmp(command, "env") == 0 || ft_strcmp(command, "ENV") == 0)
 		return (1);
 	if (ft_strcmp(command, "export") == 0)
 		return (1);
@@ -26,7 +26,7 @@ int	builtin_executor(char **args, t_mini *mini)
 		result = ft_cd(args, mini);
 	if (ft_strcmp(args[0], "echo") == 0)
 		result = ft_echo(args);
-	if (ft_strcmp(args[0], "env") == 0)
+	if (ft_strcmp(args[0], "env") == 0 || ft_strcmp(args[0], "ENV") == 0)
 		ft_env(mini->env);
 	if (ft_strcmp(args[0], "export") == 0)
 		ft_export(args, mini->env, mini->copy_env);
