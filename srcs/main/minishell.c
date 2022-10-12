@@ -17,6 +17,8 @@ void	exec_and_redir(t_mini *mini, t_token *token)
 		input(mini, token);
 	else if (ft_istype(previous, PIPE))
 		pipe = minipipe(mini);
+	if (pipe == -1)
+		return ;
 	if (next && pipe != 1)
 		exec_and_redir(mini, next->next);
 	if ((ft_istype(previous, PIPE) || !previous)
