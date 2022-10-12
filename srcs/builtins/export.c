@@ -58,7 +58,7 @@ int	already_exist_in_env(t_env *env, char *args)
 	char	var_name[BUFF_SIZE];
 
 	get_env_name(var_name, args);
-	while (env && env->next)
+	while (env)
 	{
 		get_env_name(env_name, env->value);
 		if (ft_strcmp(var_name, env_name) == 0)
