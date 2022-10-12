@@ -52,10 +52,14 @@ static int	update_oldpwd(t_mini *mini)
 	oldpwd = ft_strjoin("OLDPWD=", cwd);
 	if (!oldpwd)
 		return (ERROR);
-	if (already_exist_in_env(mini->env, oldpwd) == 0)
+	if (already_exist_in_env(mini->env, oldpwd) == 0 && already_exist_in_env(mini->env, "PWD"))
 		add_to_env(oldpwd, mini->env);
-	if (already_exist_in_env(mini->copy_env, oldpwd) == 0)
+	else if (already_exist_in_env(mini->env, "PWD") == 0 && already_exist_in_env(mini->env, oldpwd) == 0)
+		add_to_env("OLDPWD=", mini->env);
+	if (already_exist_in_env(mini->copy_env, oldpwd) == 0 && already_exist_in_env(mini->copy_env, "PWD"))
 		add_to_env(oldpwd, mini->copy_env);
+	else if (already_exist_in_env(mini->copy_env, "PWD") == 0 && already_exist_in_env(mini->copy_env, oldpwd) == 0)
+		add_to_env("OLDPWD=", mini->copy_env);
 	ft_memdel(oldpwd);
 	return (SUCCESS);
 }
