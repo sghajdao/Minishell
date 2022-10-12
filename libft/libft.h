@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 08:19:35 by sghajdao          #+#    #+#             */
-/*   Updated: 2021/11/05 08:22:28 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/12 17:07:44 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void	ft_skip_spacenl(const char *str, int *i);
 void	ft_skip_space(const char *str, int *i);
 int 	ft_strcmpall(char *str, int start, int c);
 int		ft_search(char *str, int c);
+size_t  ft_counter(char *str, int c);
 
 #endif
