@@ -38,13 +38,15 @@ void	input(t_mini *mini, t_token *token)
 	mini->fdin = open(file, O_RDONLY, S_IRWXU);
 	if (mini->fdin == -1)
 	{
+		mini->no_exec = 1;
+		if (mini->heredoc == 1)
+			return ;
 		ft_putstr_fd("minishell: ", STDERR);
 		ft_putstr_fd(file, STDERR);
 		if (access(file, F_OK) == -1)
 			ft_putendl_fd(": No such file or directory", STDERR);
 		else if (!access(file, F_OK) && access(file, R_OK) == -1)
 			ft_putendl_fd(": permission denied", STDERR);
-		mini->no_exec = 1;
 		mini->ret = 1;
 		return ;
 	}
@@ -91,8 +93,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 				}
 				if (!ft_strcmp(line, tmp->next->str))
 				{
-					// leaks here
-					tmp->type = INPUT;
+					mini->heredoc = 1;
 					tmp->str = ft_strdup("<");
 					tmp->next->str = file_name;
 					i++;
