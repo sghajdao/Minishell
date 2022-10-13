@@ -102,3 +102,4 @@ int	ft_unset(char **a, t_mini *mini)
 	}
 	return (SUCCESS);
 }
+
