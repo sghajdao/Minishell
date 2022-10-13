@@ -99,8 +99,6 @@ t_token	*get_next_token(char *line, int *i)
 			c = ' ';
 			(*i)++;
 		}
-		else if (line[*i] == '\\' && (*i)++)
-			token->str[j++] = line[(*i)++];
 		else
 			token->str[j++] = line[(*i)++];
 	}
