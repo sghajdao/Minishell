@@ -84,7 +84,7 @@ int	ft_unset(char **a, t_mini *mini)
 	if (!(a[1]))
 		return (SUCCESS);
 	delete_first_node(mini, env, a, 0);
-	while (env && env->next)
+	while (env)
 	{
 		i = 1;
 		while (a[i])
