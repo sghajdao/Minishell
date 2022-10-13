@@ -6,11 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:09:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/13 12:09:06 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/13 13:32:21 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../header/minishell.h"
 
 static void	handler(int sig)
 {
@@ -34,28 +34,41 @@ static void	add_t_at_end(char **file)
     }
 }
 
+int	if_empty_line(t_mini *mini, char *line)
+{
+	if (!line)
+	{
+		mini->ret = 1;
+		mini->no_exec = 1;
+		return (1);
+	}
+	return (0);
+}
+
 static void    read_until_delimiter(t_mini *mini, t_token *tmp, char *file_name, int fd)
 {
     char	*line;
+	char	*copy;
 
     while (1)
 	{
 		line = readline("> ");
-		if (!line)
-		{
-			mini->ret = 1;
-			mini->no_exec = 1;
+		if (if_empty_line(mini, line))
 			break ;
-		}
 		if (!ft_strcmp(line, tmp->next->str))
 		{
 			mini->heredoc = 1;
             free(tmp->str);
+			free(tmp->next->str);
             free(line);
 			tmp->str = ft_strdup("<");
 			tmp->next->str = file_name;
 			break;
 		}
+		copy = ft_strdup(line);
+		free(line);
+		line = expander(copy, mini);
+		free(copy);
         ft_putendl_fd(line, fd);
         free(line);
 	}
