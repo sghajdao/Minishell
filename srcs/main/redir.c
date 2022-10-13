@@ -53,59 +53,6 @@ void	input(t_mini *mini, t_token *token)
 	dup2(mini->fdin, STDIN);
 }
 
-void	handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		close(0);
-		write(2, "\n", 1);
-	}
-}
-
-void	ft_heredoc(t_mini *mini, t_token **lst)
-{
-	static int i;
-	char *file_name;
-	t_token	*tmp;
-	char *line;
-	int fd;
-	tmp = *lst;
-
-	while (tmp)
-	{
-		if (tmp && tmp->type == 5)
-		{
-			if (!check_syntax(mini, tmp))
-				return ;
-			file_name = ft_strjoin("/tmp/text", ft_itoa(i));
-			fd = open(file_name , O_CREAT | O_TRUNC | O_WRONLY, 0644);
-			ft_lstadd_back(&mini->file, ft_lstnew(file_name));
-			mini->heredoc = 1;
-			signal(SIGINT, handler);
-			while (1)
-			{
-				line = readline("> ");
-				if (!line)
-				{
-					mini->ret = 1;
-					mini->no_exec = 1;
-					break ;
-				}
-				if (!ft_strcmp(line, tmp->next->str))
-				{
-					mini->heredoc = 1;
-					tmp->str = ft_strdup("<");
-					tmp->next->str = file_name;
-					i++;
-					break;
-				}
-				write(fd, ft_strjoin(line, ft_strdup("\n")), ft_strlen(line) + 1);
-			}
-		}
-		tmp = tmp->next;
-	}
-}
-
 int	minipipe(t_mini *mini)
 {
 	pid_t	pid;
