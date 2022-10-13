@@ -132,9 +132,21 @@ int	ft_export(char **args, t_env *env, t_env *secret)
 			}
 			if (error_ret == 2)
 			{
-				new_env = already_exist_in_env(secret, args[i]);
-				if (new_env == 0)
-					add_to_env(args[i], secret);
+				if (ft_search(args[i], '=') == 1)
+				{
+					new_env = already_exist_in_env(secret, args[i]);
+					if (new_env == 0)
+						add_to_env(args[i], secret);
+					new_env = already_exist_in_env(env, args[i]);
+					if (new_env == 0)
+						add_to_env(args[i], env);
+				}
+				else
+				{
+					new_env = already_exist_in_env(secret, args[i]);
+					if (new_env == 0)
+						add_to_env(args[i], secret);
+				}
 			}
 			else
 				new_env = already_exist_in_env(env, args[i]);
