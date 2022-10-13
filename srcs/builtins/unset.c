@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 12:27:34 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/13 12:29:45 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../header/minishell.h"
 
 static size_t	env_name_size(char *env)
 {
@@ -55,13 +67,14 @@ void	secret_unset(char **a, t_mini *mini)
 	if (!(a[1]))
 		return ;
 	delete_first_node(mini, env, a, 1);
-	while (env && env->next)
+	while (env)
 	{
 		i = 1;
 		while (a[i])
 		{
 			if (ft_strncmp(a[i], env->next->value, \
-				env_name_size(env->next->value)) == 0 && (ft_strlen(a[i]) == ft_strlen(env->next->value) || env->next->value[ft_strlen(a[i])] == '='))
+				env_name_size(env->next->value)) == 0 && (ft_strlen(a[i]) == \
+				ft_strlen(env->next->value) || env->next->value[ft_strlen(a[i])] == '='))
 			{
 				tmp = env->next->next;
 				delete_node(mini, env->next);

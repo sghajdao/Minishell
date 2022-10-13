@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 12:30:01 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/13 17:17:38 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../header/minishell.h"
 
 int	is_valid_env_char(int c)
 {
@@ -70,6 +82,8 @@ char	*get_env_value(char *arg, t_env *env)
 	char	*value;
 
 	value = ft_strdup("");
+	if (!value)
+		return (NULL);
 	while (env && env->value)
 	{
 		get_env_name(name, env->value);

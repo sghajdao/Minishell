@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 12:29:38 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/13 16:46:30 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../header/minishell.h"
 
 static int	print_error(int error, const char *arg)
 {
@@ -26,11 +38,16 @@ int	add_to_env(const char *value, t_env *env)
 	if (env && env->value == NULL)
 	{
 		env->value = ft_strdup(value);
+		if (!env->value)
+			return (ERROR);
 		return (SUCCESS);
 	}
-	if (!(new = malloc(sizeof(t_env))))
+	new = malloc(sizeof(t_env));
+	if (!new)
 		return (-1);
 	new->value = ft_strdup(value);
+	if (!new->value)
+		return (ERROR);
 	while (env && env->next && env->next->next)
 		env = env->next;
 	tmp = env->next;
@@ -67,6 +84,8 @@ int	already_exist_in_env(t_env *env, char *args)
 			{
 				ft_memdel(env->value);
 				env->value = ft_strdup(args);
+				if (!env->value)
+					return (ERROR);
 			}
 			return (1);
 		}
@@ -82,10 +101,9 @@ void	concat(char **env, t_env *e)
 	char	*old_value;
 	char	*copy;
 
-	to_add = malloc(sizeof(char) * ft_strlen(ft_strchr(*env, '+')));
+	to_add = ft_strdup(ft_strchr(*env, '+') + 2);
 	if (!to_add)
 		return ;
-	to_add = ft_strdup(ft_strchr(*env, '+') + 2);
 	get_env_name(name, *env);
 	old_value = get_env_value(name, e);
 	copy = ft_strjoin(name, "=");
@@ -97,6 +115,8 @@ void	concat(char **env, t_env *e)
 	free(to_add);
 	free(*env);
 	*env = ft_strdup(copy);
+	if (!*env)
+		return ;
 	free(copy);
 }
 

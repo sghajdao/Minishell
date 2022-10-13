@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 12:21:53 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/13 16:30:23 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../header/minishell.h"
 
 void	exec_and_redir(t_mini *mini, t_token *token)
 {
@@ -61,6 +73,7 @@ void	minishell(t_mini *mini)
 int	main(int ac, char **av, char **env)
 {
 	t_mini	mini;
+	//t_list	*tmp;
 
 	(void)ac;
 	(void)av;
@@ -87,6 +100,9 @@ int	main(int ac, char **av, char **env)
 			while (mini.file)
 			{
 				unlink(mini.file->content);
+				//tmp = mini.file->next;
+				//ft_memdel(mini.file);
+				//mini.file->next = tmp;
 				mini.file = mini.file->next;
 			}
 		}

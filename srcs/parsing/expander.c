@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 12:22:09 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/13 17:16:46 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../header/minishell.h"
 
 static int	varlcopy(char *new_arg, const char *env_value, int pos)
 {

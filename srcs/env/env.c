@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 12:29:58 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/13 16:06:52 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../header/minishell.h"
 
 static void	if_no_env(t_env **env, t_mini *mini, int flag)
 {
@@ -11,7 +23,7 @@ static void	if_no_env(t_env **env, t_mini *mini, int flag)
 	env = malloc(BUFF_SIZE);
 	ft_memset(env, 0, BUFF_SIZE);
 	ft_lstadd_back_env(env, ft_lstnew_env("PATH=/usr/bin:/bin:/usr/sbin:/sbin"));
-	ft_lstadd_back_env(env, ft_lstnew_env("SHLVL=1"));
+	ft_lstadd_back_env(env, ft_lstnew_env("SHLVL=0"));
 	ft_lstadd_back_env(env, ft_lstnew_env(pwd));
 	free(pwd);
 	if (flag == 0)

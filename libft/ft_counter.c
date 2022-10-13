@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:14:14 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/12 17:14:28 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:26:01 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,14 @@ size_t  ft_counter(char *str, int c)
     while (str[i])
     {
         if (str[i] == c)
-            count++;
+        {
+            while (str[i] == c)
+            {
+                count++;
+                i++;
+            }
+            return (count);
+        }
         i++;
     }
     return (count);

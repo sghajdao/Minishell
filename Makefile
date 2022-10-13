@@ -2,11 +2,9 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I header/ -I libft/
+LDFLAGS="-L/goinfre/sghajdao/homebrew/opt/readline/lib"
 
-LDFLAGS="-L/goinfre/akremcht/.brew/opt/readline/lib"
-
-CPPFLAGS="-I/goinfre/akremcht/.brew/opt/readline/include"
+CPPFLAGS="-I/goinfre/sghajdao/homebrew/opt/readline/include"
 
 LIBFT = libft/libft.a
 
@@ -16,7 +14,7 @@ BUILTINS = cd echo env exit export pwd unset
 
 ENV = env get_env sort_env shlvl env_tools
 
-EXEC = bin builtin exec
+EXEC = bin builtin exec heredoc
 
 MAIN = minishell redir signal
 

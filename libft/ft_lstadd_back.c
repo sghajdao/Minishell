@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 16:31:57 by sghajdao          #+#    #+#             */
-/*   Updated: 2021/11/03 16:35:09 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/13 12:33:44 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 		p -> next = new;
 	}
 }
-

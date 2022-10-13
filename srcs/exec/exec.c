@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 12:30:26 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/13 17:15:45 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../header/minishell.h"
 
 char	**cmd_tab(t_token *start)
 {
@@ -43,7 +55,11 @@ void	execution_center(t_mini *mini, t_token *token)
 		if (mini->type_quotes == 0 || mini->type_quotes == 1)
 			cmd[i] = expander(cmd[i], mini);
 		else
+		{
 			cmd[i] = ft_strdup(cmd[i]);
+			if (!cmd[i])
+				return ;
+		}
 		i++;
 	}
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)

@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_tools.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 12:29:55 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/13 17:21:16 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../header/minishell.h"
 
 size_t	envlen(t_env *lst)
 {
@@ -67,6 +79,8 @@ t_env	*ft_lstnew_env(void *content)
 	if (!c)
 		return (NULL);
 	c -> value = ft_strdup(content);
+	if (!c->value)
+		return (NULL);
 	c -> next = NULL;
 	return (c);
 }
