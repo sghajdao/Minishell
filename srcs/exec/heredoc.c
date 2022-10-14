@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:09:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/14 08:23:49 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/14 09:02:36 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void    read_until_delimiter(t_mini *mini, t_token *tmp, char *file_name,
 			tmp->str = ft_strdup("<");
 			if (!tmp->str)
 				return ;
-			tmp->next->str = ft_strdup(file_name);
+			tmp->next->str = file_name;
 			break;
 		}
 		copy = ft_strdup(line);
@@ -80,7 +80,6 @@ static void    read_until_delimiter(t_mini *mini, t_token *tmp, char *file_name,
         ft_putendl_fd(line, fd);
         free(line);
 	}
-	tmp->next->str = ft_memdel(tmp->next->str);
 }
 
 void	ft_heredoc(t_mini *mini, t_token **lst)
@@ -107,7 +106,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 			mini->heredoc = 1;
 			signal(SIGINT, handler);
             read_until_delimiter(mini, tmp, file_name, fd);
-			file_name = ft_memdel(file_name);
+			//ft_memdel(file_name);
 		}
 		tmp = tmp->next;
 	}
