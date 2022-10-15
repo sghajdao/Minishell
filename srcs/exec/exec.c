@@ -12,7 +12,7 @@
 
 #include "../../header/minishell.h"
 
-char	**cmd_tab(t_token *start)
+static char	**cmd_tab(t_token *start)
 {
 	int		i;
 	char	**tab;
@@ -41,15 +41,11 @@ char	**cmd_tab(t_token *start)
 	return (tab);
 }
 
-void	execution_center(t_mini *mini, t_token *token)
+static int	if_env_variable(t_mini *mini, char **cmd)
 {
-	int		i;
-	char	**cmd;
+	int	i;
 
-	if (mini->charge == 0)
-		return ;
 	i = 0;
-	cmd = cmd_tab(token);
 	while (cmd && cmd[i])
 	{
 		if (mini->type_quotes == 0 || mini->type_quotes == 1)
@@ -58,10 +54,51 @@ void	execution_center(t_mini *mini, t_token *token)
 		{
 			cmd[i] = ft_strdup(cmd[i]);
 			if (!cmd[i])
-				return ;
+				return (ERROR);
 		}
 		i++;
 	}
+	return (SUCCESS);
+}
+
+int	executor(char **args, t_env *env, t_mini *mini)
+{
+	char	**bin;
+	char	*path;
+	int		i;
+	int		ret;
+
+	i = 0;
+	ret = UNKNOWN_COMMAND;
+	while (env && env->value && ft_strncmp(env->value, "PATH=", 5) != 0)
+		env = env->next;
+	if (env == NULL || env->next == NULL)
+		return (fork_proces(args[0], args, env, mini));
+	bin = ft_split(env->value, ':');
+	if (!args[0] && !bin[0])
+		return (ERROR);
+	i = 1;
+	path = check_directory(bin[0] + 5, args[0]);
+	while (args[0] && bin[i] && path == NULL)
+		path = check_directory(bin[i++], args[0]);
+	if (path != NULL)
+		ret = fork_proces(path, args, env, mini);
+	else
+		ret = fork_proces(args[0], args, env, mini);
+	freeing_tab(bin);
+	ft_memdel(path);
+	return (ret);
+}
+
+void	execution_center(t_mini *mini, t_token *token)
+{
+	char	**cmd;
+
+	if (mini->charge == 0)
+		return ;
+	cmd = cmd_tab(token);
+	if (if_env_variable(mini, cmd))
+		return ;
 	if (cmd && ft_strcmp(cmd[0], "exit") == 0 && has_pipe(token) == 0)
 		ft_exit(mini, cmd);
 	else if (cmd && is_builtin_cmd(cmd[0]))

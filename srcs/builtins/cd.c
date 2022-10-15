@@ -12,48 +12,6 @@
 
 #include "../../header/minishell.h"
 
-static void	print_cd_error(char **args)
-{
-	ft_putstr_fd("cd: ", 2);
-	if (args[2])
-		ft_putstr_fd("string not in pwd: ", 2);
-	else
-	{
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd(": ", 2);
-	}
-	ft_putendl_fd(args[1], 2);
-}
-
-static char	*getPathFromEnv(t_env *env, const char *var, size_t len)
-{
-	int		i;
-	int		j;
-	int		s_alloc;
-	char	*oldpwd;
-
-	while (env->next != NULL && env)
-	{
-		if (ft_strncmp(env->value, var, len) == 0)
-		{
-			s_alloc = ft_strlen(env->value) - len;
-			if (!(oldpwd = malloc(sizeof(char) * s_alloc + 1)))
-				return (NULL);
-			i = 0;
-			j = 0;
-			while (env->value[i++])
-			{
-				if (i > (int)len)
-					oldpwd[j++] = env->value[i];
-			}
-			oldpwd[j] = '\0';
-			return (oldpwd);
-		}
-		env = env->next;
-	}
-	return (NULL);
-}
-
 static int	update_oldpwd(t_mini *mini)
 {
 	char	*oldpwd;
@@ -64,13 +22,17 @@ static int	update_oldpwd(t_mini *mini)
 	oldpwd = ft_strjoin("OLDPWD=", cwd);
 	if (!oldpwd)
 		return (ERROR);
-	if (already_exist_in_env(mini->env, oldpwd) == 0 && already_exist_in_env(mini->env, "PWD"))
+	if (already_exist_in_env(mini->env, oldpwd) == 0 && \
+		already_exist_in_env(mini->env, "PWD"))
 		add_to_env(oldpwd, mini->env);
-	else if (already_exist_in_env(mini->env, "PWD") == 0 && already_exist_in_env(mini->env, oldpwd) == 0)
+	else if (already_exist_in_env(mini->env, "PWD") == 0 && \
+		already_exist_in_env(mini->env, oldpwd) == 0)
 		add_to_env("OLDPWD=", mini->env);
-	if (already_exist_in_env(mini->copy_env, oldpwd) == 0 && already_exist_in_env(mini->copy_env, "PWD"))
+	if (already_exist_in_env(mini->copy_env, oldpwd) == 0 && \
+		already_exist_in_env(mini->copy_env, "PWD"))
 		add_to_env(oldpwd, mini->copy_env);
-	else if (already_exist_in_env(mini->copy_env, "PWD") == 0 && already_exist_in_env(mini->copy_env, oldpwd) == 0)
+	else if (already_exist_in_env(mini->copy_env, "PWD") == 0 && \
+		already_exist_in_env(mini->copy_env, oldpwd) == 0)
 		add_to_env("OLDPWD=", mini->copy_env);
 	ft_memdel(oldpwd);
 	return (SUCCESS);

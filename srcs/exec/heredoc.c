@@ -106,7 +106,6 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 			mini->heredoc = 1;
 			signal(SIGINT, handler);
             read_until_delimiter(mini, tmp, file_name, fd);
-			//ft_memdel(file_name);
 		}
 		tmp = tmp->next;
 	}

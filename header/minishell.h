@@ -99,6 +99,8 @@ void	input(t_mini *mini, t_token *token);
 void	ft_heredoc(t_mini *mini, t_token **lst);
 int		minipipe(t_mini *mini);
 char	*expander(char *arg, t_mini *mini);
+char	*check_directory(char *bin, char *command);
+int	fork_proces(char *path, char **args, t_env *env, t_mini *mini);
 
 /*
 ** EXEC
@@ -122,6 +124,11 @@ void	get_env_name(char *dest, const char *src);
 int		already_exist_in_env(t_env *env, char *args);
 int		ft_unset(char **args, t_mini *mini);
 void	ft_exit(t_mini *mini, char **cmd);
+void	print_cd_error(char **args);
+char	*getPathFromEnv(t_env *env, const char *var, size_t len);
+int		add_to_env(const char *value, t_env *env);
+int		already_exist_in_env(t_env *env, char *args);
+void	concat(char **env, t_env *e);
 
 /*
 ** PARSING
@@ -204,6 +211,6 @@ void	restore_prompt(int sig);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
 
-t_sig g_sig;
+extern t_sig g_sig;
 
 #endif

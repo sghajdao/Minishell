@@ -12,7 +12,7 @@
 
 #include "../../header/minishell.h"
 
-int	print_error(char *path)
+static int	print_error(char *path)
 {
 	int	fd;
 	int	ret;
@@ -40,18 +40,13 @@ int	print_error(char *path)
 	return (ret);
 }
 
-int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
+static int	exec_cmd(char *path, char ** args, t_env *env, t_mini *mini)
 {
 	int		ret;
 	char	**env_array;
 	char	*ptr;
 
 	ret = SUCCESS;
-	g_sig.pid = fork();
-	if (g_sig.pid < 0)
-		return (1);
-	run_signals(2);
-	signal(SIGINT, SIG_IGN);
 	if (g_sig.pid == 0)
 	{
 		signal(SIGINT,SIG_DFL);
@@ -67,6 +62,22 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 	}
 	else
 		waitpid(g_sig.pid, &ret, 0);
+	return (ret);
+}
+
+int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
+{
+	int		ret;
+	char	**env_array;
+	char	*ptr;
+
+	ret = SUCCESS;
+	g_sig.pid = fork();
+	if (g_sig.pid < 0)
+		return (1);
+	run_signals(2);
+	signal(SIGINT, SIG_IGN);
+	ret = exec_cmd(path, args, env, mini);
 	if (g_sig.sigint == 1 || g_sig.sigquit == 1)
 		return (g_sig.exit_status);
 	if (ret == 32512 || ret == 32256)
@@ -76,8 +87,7 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 	return (ret);
 }
 
-
-char	*path_join(const char *s1, const char *s2)
+static char	*path_join(const char *s1, const char *s2)
 {
 	char	*path;
 	char	*tmp;
@@ -105,33 +115,4 @@ char	*check_directory(char *bin, char *command)
 	}
 	closedir(folder);
 	return (path);
-}
-
-int	executor(char **args, t_env *env, t_mini *mini)
-{
-	char	**bin;
-	char	*path;
-	int		i;
-	int		ret;
-
-	i = 0;
-	ret = UNKNOWN_COMMAND;
-	while (env && env->value && ft_strncmp(env->value, "PATH=", 5) != 0)
-		env = env->next;
-	if (env == NULL || env->next == NULL)
-		return (fork_proces(args[0], args, env, mini));
-	bin = ft_split(env->value, ':');
-	if (!args[0] && !bin[0])
-		return (ERROR);
-	i = 1;
-	path = check_directory(bin[0] + 5, args[0]);
-	while (args[0] && bin[i] && path == NULL)
-		path = check_directory(bin[i++], args[0]);
-	if (path != NULL)
-		ret = fork_proces(path, args, env, mini);
-	else
-		ret = fork_proces(args[0], args, env, mini);
-	freeing_tab(bin);
-	ft_memdel(path);
-	return (ret);
 }

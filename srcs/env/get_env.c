@@ -32,7 +32,8 @@ int	is_valid_env_str(const char *env)
 			return (-1);
 		i++;
 	}
-	if (env[i] != '=' || (env[i] == '=' && (env[i + 1] == '\0' || env[i + 1] == ' ')))
+	if (env[i] != '=' || (env[i] == '=' && \
+		(env[i + 1] == '\0' || env[i + 1] == ' ')))
 		return (2);
 	return (1);
 }

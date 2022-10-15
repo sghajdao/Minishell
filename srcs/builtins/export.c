@@ -30,156 +30,80 @@ static int	print_error(int error, const char *arg)
 	return (ERROR);
 }
 
-int	add_to_env(const char *value, t_env *env)
+int	error_case(char *args, int *i, int *error_ret)
 {
-	t_env	*new;
-	t_env	*tmp;
-
-	if (env && env->value == NULL)
+	*error_ret = is_valid_env_str(args);
+	if (args[0] == '=')
+		*error_ret = -3;
+	if (*error_ret <= 0)
 	{
-		env->value = ft_strdup(value);
-		if (!env->value)
+		if  (print_error(*error_ret, args) == ERROR)
+		{
+			(*i)++;
 			return (ERROR);
-		return (SUCCESS);
+		}
 	}
-	new = malloc(sizeof(t_env));
-	if (!new)
-		return (-1);
-	new->value = ft_strdup(value);
-	if (!new->value)
-		return (ERROR);
-	while (env && env->next && env->next->next)
-		env = env->next;
-	tmp = env->next;
-	env->next = new;
-	new->next = tmp;
 	return (SUCCESS);
 }
 
-void	get_env_name(char *dest, const char *src)
+int	if_no_value(char *args, t_env *env, t_env *secret)
+{
+	int	new_env;
+
+	if (ft_search(args, '=') == 1)
+	{
+		new_env = already_exist_in_env(secret, args);
+		if (new_env == 0)
+			add_to_env(args, secret);
+		new_env = already_exist_in_env(env, args);
+		if (new_env == 0)
+			add_to_env(args, env);
+	}
+	else
+	{
+		new_env = already_exist_in_env(secret, args);
+		if (new_env == 0)
+			add_to_env(args, secret);
+	}
+	return (new_env);
+}
+
+void	exec_export(char **args, t_env *env, t_env *secret)
 {
 	int	i;
+	int	error_ret;
+	int	new_env;
 
-	i = 0;
-	while (src[i] && (ft_strlen(src) < BUFF_SIZE) && src[i] != '=' && src[i] != '+')
+	i = 1;
+	new_env = 0;
+	while (args[i])
 	{
-		dest[i] = src[i];
+		if (ft_search(args[i], '+'))
+			concat(&args[i], env);
+		if (error_case(args[i], &i, &error_ret))
+			continue ;
+		if (error_ret == 2)
+			new_env = if_no_value(args[i], env, secret);
+		else
+			new_env = already_exist_in_env(env, args[i]);
+		if (new_env == 0)
+			if (error_ret == 1)
+				add_to_env(args[i], env);
+		new_env = already_exist_in_env(secret, args[i]);
+		if (new_env == 0)
+			add_to_env(args[i], secret);
 		i++;
 	}
-	dest[i] = '\0';
-}
-
-int	already_exist_in_env(t_env *env, char *args)
-{
-	char	env_name[BUFF_SIZE];
-	char	var_name[BUFF_SIZE];
-
-	get_env_name(var_name, args);
-	while (env)
-	{
-		get_env_name(env_name, env->value);
-		if (ft_strcmp(var_name, env_name) == 0)
-		{
-			if (ft_search(args, '='))
-			{
-				ft_memdel(env->value);
-				env->value = ft_strdup(args);
-				if (!env->value)
-					return (ERROR);
-			}
-			return (1);
-		}
-		env = env->next;
-	}
-	return (SUCCESS);
-}
-
-void	concat(char **env, t_env *e)
-{
-	char	*to_add;
-	char	name[BUFF_SIZE];
-	char	*old_value;
-	char	*copy;
-
-	to_add = ft_strdup(ft_strchr(*env, '+') + 2);
-	if (!to_add)
-		return ;
-	get_env_name(name, *env);
-	old_value = get_env_value(name, e);
-	copy = ft_strjoin(name, "=");
-	free(*env);
-	*env = ft_strjoin(copy, old_value);
-	free(old_value);
-	free(copy);
-	copy = ft_strjoin(*env, to_add);
-	free(to_add);
-	free(*env);
-	*env = ft_strdup(copy);
-	if (!*env)
-		return ;
-	free(copy);
 }
 
 int	ft_export(char **args, t_env *env, t_env *secret)
 {
-	int	error_ret;
-	int	new_env;
-	int	i;
-
-	new_env = 0;
 	if (!args[1])
 	{
 		print_env_sorted(secret);
 		return (SUCCESS);
 	}
 	else
-	{
-		i = 1;
-		while (args[i])
-		{
-			if (ft_search(args[i], '+'))
-				concat(&args[i], env);
-			error_ret = is_valid_env_str(args[i]);
-			if (args[i][0] == '=')
-				error_ret = -3;
-			if (error_ret <= 0)
-			{
-				if  (print_error(error_ret, args[i]) == ERROR)
-				{
-					i++;
-					continue ;
-				}
-			}
-			if (error_ret == 2)
-			{
-				if (ft_search(args[i], '=') == 1)
-				{
-					new_env = already_exist_in_env(secret, args[i]);
-					if (new_env == 0)
-						add_to_env(args[i], secret);
-					new_env = already_exist_in_env(env, args[i]);
-					if (new_env == 0)
-						add_to_env(args[i], env);
-				}
-				else
-				{
-					new_env = already_exist_in_env(secret, args[i]);
-					if (new_env == 0)
-						add_to_env(args[i], secret);
-				}
-			}
-			else
-				new_env = already_exist_in_env(env, args[i]);
-			if (new_env == 0)
-			{
-				if (error_ret == 1)
-					add_to_env(args[i], env);
-			}
-			new_env = already_exist_in_env(secret, args[i]);
-			if (new_env == 0)
-				add_to_env(args[i], secret);
-			i++;
-		}
-	}
+		exec_export(args, env, secret);
 	return (SUCCESS);
 }
