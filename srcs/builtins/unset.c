@@ -31,7 +31,7 @@ void	secret_unset(char **a, t_mini *mini)
 				env_name_size(env->next->value)) == 0 && \
 				ft_strlen(a[i]) == env_name_size(env->next->value))
 				cut_and_past(mini, &env);
-			i++;
+			(*i)++;
 		}
 		env = env->next;
 	}
