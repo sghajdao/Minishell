@@ -82,8 +82,6 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 		return (g_sig.exit_status);
 	if (ret == 32512 || ret == 32256)
 		ret = ret / 256;
-	else
-		ret = !!ret;
 	return (ret);
 }
 
