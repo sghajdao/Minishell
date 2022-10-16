@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:09:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/14 09:02:36 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:45:28 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static void    read_until_delimiter(t_mini *mini, t_token *tmp, char *file_name,
 			break ;
 		if (!ft_strcmp(line, tmp->next->str))
 		{
+			free(line);
 			if (stop_reading(mini, tmp, file_name))
 				return ;
 			else
 				break ;
-			free(line);
 		}
 		copy = ft_strdup(line);
 		if (!copy)

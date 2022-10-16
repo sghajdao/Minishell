@@ -133,6 +133,7 @@ size_t	env_name_size(char *env);
 void	delete_node(t_mini *mini, t_env *env);
 int		delete_first_node(t_env **env, char **a, int *i);
 void	cut_and_past(t_mini *mini, t_env **env);
+int		error_case(char *args, int *i, int *error_ret);
 
 /*
 ** PARSING

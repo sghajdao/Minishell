@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_charscmp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 12:29:31 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:35:21 by sghajdao         ###   ########.fr       */
+/*   Created: 2022/10/16 20:26:14 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/16 20:26:15 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "libft.h"
 
-int	ft_env(t_env *env)
+int ft_charscmp(char *s1, char *s2)
 {
-	while (env->next != NULL && env)
-	{
-		ft_putendl(env->value);
-		env = env->next;
-	}
-	if (env)
-		ft_putendl(env->value);
-	return (SUCCESS);
+    int i;
+    int j;
+
+    i = 0;
+    while (s1[i])
+    {
+        j = 0;
+        while (s2[j])
+        {
+            if (s1[i] == s2[j])
+                return (0);
+            j++;
+        }
+        i++;
+    }
+    return (1);
 }

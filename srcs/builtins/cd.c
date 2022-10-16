@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:27:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/13 12:27:31 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/16 16:03:15 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	ft_cd(char **args, t_mini *mini)
 		updat_pwd(mini);
 		if (cd_ret < 0)
 			cd_ret *= -1;
-		if (cd_ret != 0)
+		if (cd_ret != 0 && ft_strcmp(args[1], "-"))
 			print_cd_error(args);
 	}
 	return (cd_ret);

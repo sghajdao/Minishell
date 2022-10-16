@@ -16,7 +16,7 @@ SRC := ft_strjoin.c \
 	ft_isdigit.c ft_putendl_fd.c ft_putendl.c ft_strrchr.c \
 	ft_isprint.c ft_putnbr_fd.c ft_strtrim.c ft_strcmp.c \
 	ft_itoa.c ft_putstr_fd.c ft_substr.c ft_putstr.c \
-	ft_split.c ft_tolower.c \
+	ft_split.c ft_tolower.c ft_charscmp.c \
 	ft_strchr.c ft_toupper.c ft_counter.c \
 	ft_strdup.c ft_skip_spacenl.c \
 	ft_striteri.c ft_skip_space.c ft_strcmpall.c ft_search.c

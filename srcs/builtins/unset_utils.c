@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/16 15:35:55 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/16 17:32:57 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../header/minishell.h"
 
 size_t	env_name_size(char *env)
@@ -26,7 +38,7 @@ void	delete_node(t_mini *mini, t_env *env)
 int	delete_first_node(t_env **env, char **a, int *i)
 {
 	t_env	*tmp;
-
+	int j = 0;
 	if (!env || !*env)
 		return (0);
 	if (ft_strncmp(a[*i], (*env)->value, ft_strlen(a[*i])) == 0)
@@ -35,7 +47,7 @@ int	delete_first_node(t_env **env, char **a, int *i)
 		*env = (*env)->next;
 		ft_memdel(tmp->value);
 		ft_memdel(tmp);
-		++i;
+		++(*i);
 		return (SUCCESS);
 	}
 	return (ERROR);
