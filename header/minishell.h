@@ -129,6 +129,10 @@ char	*getPathFromEnv(t_env *env, const char *var, size_t len);
 int		add_to_env(const char *value, t_env *env);
 int		already_exist_in_env(t_env *env, char *args);
 void	concat(char **env, t_env *e);
+size_t	env_name_size(char *env);
+void	delete_node(t_mini *mini, t_env *env);
+int		delete_first_node(t_env **env, char **a, int *i);
+void	cut_and_past(t_mini *mini, t_env **env);
 
 /*
 ** PARSING
@@ -193,6 +197,12 @@ int		has_pipe(t_token *token);
 t_token	*next_type(t_token *token, int type, int skip);
 
 /*
+** EXEC TOOLS
+*/
+int 	stop_reading(t_mini *mini, t_token *tmp, char *file_name);
+void	unlinking_heredoc_files(t_mini *mini);
+
+/*
 ** EXPANDER
 */
 int		rtn_size(int ret);
@@ -211,6 +221,6 @@ void	restore_prompt(int sig);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
 
-extern t_sig g_sig;
+t_sig g_sig;
 
 #endif

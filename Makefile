@@ -2,15 +2,15 @@ NAME = minishell
 
 CC = cc
 
-#LDFLAGS="-L/goinfre/sghajdao/homebrew/opt/readline/lib"
-#
-#CPPFLAGS="-I/goinfre/sghajdao/homebrew/opt/readline/include"
+LDFLAGS="-L/goinfre/sghajdao/homebrew/opt/readline/lib"
+
+CPPFLAGS="-I/goinfre/sghajdao/homebrew/opt/readline/include"
 
 LIBFT = libft/libft.a
 
 HEADER = ./header/minishell.h
 
-BUILTINS = cd echo env exit export pwd unset cd_utils export_utils
+BUILTINS = cd echo env exit export pwd unset cd_utils export_utils unset_utils
 
 ENV = env get_env sort_env shlvl env_tools
 
@@ -20,7 +20,7 @@ MAIN = minishell redir signal
 
 PARSING = parser tokens expander lexer
 
-TOOLS = fd free token type expander parsing
+TOOLS = fd free token type expander parsing heredoc_utils
 
 SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 	  $(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
@@ -36,7 +36,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "\n"
 	@make bonus -C libft/
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(CPPFLAGS) $(LIBFT) $(LDFLAGS) -lreadline
 	@echo "\n\033[0;42mDone !"
 
 %.o:%.c HEADER

@@ -12,7 +12,28 @@
 
 #include "../../header/minishell.h"
 
-t_sig g_sig;
+void	initialization(t_mini *mini, char **env)
+{
+	mini->in = dup(STDIN);
+	mini->out = dup(STDOUT);
+	mini->exit = 0;
+	mini->ret = 0;
+	mini->no_exec = 0;
+	reset_all_fds(mini);
+	init_env(mini, env);
+	init_copy_env(mini, env);
+	increment_shlvl(mini->env);
+	increment_shlvl(mini->copy_env);
+}
+
+void	exit_from_parent(t_mini *mini)
+{
+	if (mini->parent == 0)
+	{
+		freeing_token(mini->start);
+		exit(mini->ret);
+	}
+}
 
 void	exec_and_redir(t_mini *mini, t_token *token)
 {
@@ -61,11 +82,7 @@ void	minishell(t_mini *mini)
 		status = WEXITSTATUS(status);
 		if (mini->last == 0)
 			mini->ret = status;
-		if (mini->parent == 0)
-		{
-			freeing_token(mini->start);
-			exit(mini->ret);
-		}
+		exit_from_parent(mini);
 		mini->no_exec = 0;
 		if (token)
 			token = last_token(token, SKIP);
@@ -75,20 +92,10 @@ void	minishell(t_mini *mini)
 int	main(int ac, char **av, char **env)
 {
 	t_mini	mini;
-	//t_list	*tmp;
 
 	(void)ac;
 	(void)av;
-	mini.in = dup(STDIN);
-	mini.out = dup(STDOUT);
-	mini.exit = 0;
-	mini.ret = 0;
-	mini.no_exec = 0;
-	reset_all_fds(&mini);
-	init_env(&mini, env);
-	init_copy_env(&mini, env);
-	increment_shlvl(mini.env);
-	increment_shlvl(mini.copy_env);
+	initialization(&mini, env);
 	while (mini.exit == 0)
 	{
 		mini.heredoc = 0;
@@ -97,17 +104,7 @@ int	main(int ac, char **av, char **env)
 		parser(&mini);
 		if (mini.start != NULL && check_syntax(&mini, mini.start))
 			minishell(&mini);
-		if (mini.heredoc)
-		{
-			while (mini.file)
-			{
-				unlink(mini.file->content);
-				//tmp = mini.file->next;
-				//ft_memdel(mini.file);
-				//mini.file->next = tmp;
-				mini.file = mini.file->next;
-			}
-		}
+		unlinking_heredoc_files(&mini);
 		freeing_token(mini.start);
 	}
 	freeing_env(mini.env);

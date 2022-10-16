@@ -51,25 +51,21 @@ int	if_empty_line(t_mini *mini, char *line)
 
 static void    read_until_delimiter(t_mini *mini, t_token *tmp, char *file_name, int fd)
 {
-    char	*line;
+	char	*line;
 	char	*copy;
-
-    while (1)
+	
+	while (1)
 	{
 		line = readline("> ");
 		if (if_empty_line(mini, line))
 			break ;
 		if (!ft_strcmp(line, tmp->next->str))
 		{
-			mini->heredoc = 1;
-            free(tmp->str);
-			free(tmp->next->str);
-            free(line);
-			tmp->str = ft_strdup("<");
-			if (!tmp->str)
+			if (stop_reading(mini, tmp, file_name))
 				return ;
-			tmp->next->str = file_name;
-			break;
+			else
+				break ;
+			free(line);
 		}
 		copy = ft_strdup(line);
 		if (!copy)
@@ -77,8 +73,8 @@ static void    read_until_delimiter(t_mini *mini, t_token *tmp, char *file_name,
 		free(line);
 		line = expander(copy, mini);
 		free(copy);
-        ft_putendl_fd(line, fd);
-        free(line);
+		ft_putendl_fd(line, fd);
+		free(line);
 	}
 }
 
@@ -96,7 +92,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 		{
 			if (!check_syntax(mini, tmp))
 				return ;
-            file_name = ft_strdup("/tmp/.txt");
+			file_name = ft_strdup("/tmp/.txt");
 			if (!file_name)
 				return ;
 			add_t_at_end(&file_name);
@@ -105,7 +101,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 			ft_lstadd_back(&mini->file, copy);
 			mini->heredoc = 1;
 			signal(SIGINT, handler);
-            read_until_delimiter(mini, tmp, file_name, fd);
+			read_until_delimiter(mini, tmp, file_name, fd);
 		}
 		tmp = tmp->next;
 	}
