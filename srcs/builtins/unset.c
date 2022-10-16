@@ -35,6 +35,24 @@ static void	delete_node(t_mini *mini, t_env *env)
 	ft_memdel(env);
 }
 
+static int	delete_first_node(t_env **env, char **a, int *i)
+{
+	t_env	*tmp;
+
+	if (!env || !*env)
+		return (0);
+	if (ft_strncmp(a[*i], (*env)->value, ft_strlen(a[*i])) == 0)
+	{
+		tmp = *env;
+		*env = (*env)->next;
+		ft_memdel(tmp->value);
+		ft_memdel(tmp);
+		++i;
+		return (SUCCESS);
+	}
+	return (ERROR);
+}
+
 void	secret_unset(char **a, t_mini *mini)
 {
 	t_env	*tmp;
@@ -49,6 +67,8 @@ void	secret_unset(char **a, t_mini *mini)
 		i = 1;
 		while (a[i])
 		{
+			if (!delete_first_node(&mini->copy_env, a, &i))
+				continue;
 			if (ft_strncmp(a[i], env->next->value, \
 				env_name_size(env->next->value)) == 0 && \
 				ft_strlen(a[i]) == env_name_size(env->next->value))
@@ -78,6 +98,8 @@ int	ft_unset(char **a, t_mini *mini)
 		i = 1;
 		while (a[i])
 		{
+			if (!delete_first_node(&mini->env, a, &i))
+				continue;
 			if (ft_strncmp(a[i], env->next->value, \
 				env_name_size(env->next->value)) == 0 && ft_strlen(a[i]) == env_name_size(env->next->value))
 			{
