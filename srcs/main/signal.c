@@ -33,8 +33,8 @@ void	run_signals(int sig)
 		signal(SIGQUIT, back_slash);
 	}
 	if (sig == 3)
-	{
-		ft_putendl_fd("exit", STDOUT);
+	{	
+		write(1, "\033[1A\033[11Cexit\n", 14);
 		exit(0);
 	}
 }
