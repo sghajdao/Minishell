@@ -73,20 +73,8 @@ void	input(t_mini *mini, t_token *token)
 	dup2(mini->fdin, STDIN);
 }
 
-int	minipipe(t_mini *mini)
+static int	dup_and_init_in_process(t_mini *mini, pid_t pid, int *pipefd)
 {
-	pid_t	pid;
-	int		pipefd[2];
-
-	pipe(pipefd);
-	pid = fork();
-	if (pid < 0)
-	{
-		ft_putendl_fd("minishell: fork: Resource temporarily unavailable", 2);
-		mini->no_exec = 1;
-		return (-1);
-	}
-	run_signals(2);
 	if (pid == 0)
 	{
 		close_fd(pipefd[1]);
@@ -106,4 +94,21 @@ int	minipipe(t_mini *mini)
 		mini->last = 0;
 		return (1);
 	}
+}
+
+int	minipipe(t_mini *mini)
+{
+	pid_t	pid;
+	int		pipefd[2];
+
+	pipe(pipefd);
+	pid = fork();
+	if (pid < 0)
+	{
+		ft_putendl_fd("minishell: fork: Resource temporarily unavailable", 2);
+		mini->no_exec = 1;
+		return (-1);
+	}
+	run_signals(2);
+	return (dup_and_init_in_process(mini, pid, pipefd));
 }
