@@ -6,13 +6,13 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:08 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:09:01 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 10:05:11 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-int	env_str_len(char **env)
+int	env_strlen(char **env)
 {
 	int	i;
 
@@ -83,7 +83,7 @@ void	print_env_sorted(t_env *env)
 	str_env = env_to_string(env);
 	tab = ft_split(str_env, '\n');
 	ft_memdel(str_env);
-	env_sort(tab, envStrLen(tab));
+	env_sort(tab, env_strlen(tab));
 	add_quotes_to_value(tab);
 	freeing_tab(tab);
 }

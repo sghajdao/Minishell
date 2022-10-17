@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:27:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:53:47 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 10:02:26 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	change_directory(int option, t_env *env, t_mini *mini)
 	if (option == 0)
 	{
 		update_oldpwd(mini);
-		env_path = getPathFromEnv(env, "HOME", 4);
+		env_path = get_path_from_env(env, "HOME", 4);
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: HOME not set", STDERR);
 		if (!env_path)
@@ -55,7 +55,7 @@ static int	change_directory(int option, t_env *env, t_mini *mini)
 	}
 	else if (option == 1)
 	{
-		env_path = getPathFromEnv(env, "OLDPWD", 6);
+		env_path = get_path_from_env(env, "OLDPWD", 6);
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: OLDPWD not set", STDERR);
 		if (!env_path)

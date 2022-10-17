@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:43 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:37:10 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 10:02:46 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	run_signals(int sig)
 void	restore_prompt(int sig)
 {
 	write(2, "\n", 1);
-	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 	g_sig.exit_status = 1;
@@ -55,7 +54,6 @@ void	ctrl_c(int sig)
 	(void)sig;
 	write(2, "\n", 1);
 	rl_on_new_line();
-	rl_replace_line("", 0);
 	g_sig.exit_status = 1;
 	g_sig.sigint = 1;
 }

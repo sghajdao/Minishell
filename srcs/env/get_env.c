@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:01 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:08:07 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 10:01:55 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*get_env_value(char *arg, t_env *env)
 		if (ft_strcmp(arg, name) == 0)
 		{
 			ft_memdel(value);
-			value = envValueFromStr(env->value);
+			value = env_value_from_str(env->value);
 			return (value);
 		}
 		env = env->next;

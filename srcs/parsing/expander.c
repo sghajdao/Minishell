@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:09 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:27:12 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 10:00:29 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static	void	var_inserting(t_expander *ex, char *arg, t_env *env, int ret)
 {
 	char	*env_value;
 
-	env_value = getEnvVarValue(arg, ex->j, env, ret);
+	env_value = get_env_var_value(arg, ex->j, env, ret);
 	if (env_value)
 		ex->i += varlcopy(ex->new_arg, env_value, ex->i);
 	ft_memdel(env_value);
@@ -51,7 +51,7 @@ char	*expander(char *arg, t_mini *mini)
 
 	if (!arg)
 		return (NULL);
-	new_arg_len = cmdsLenForAlloc(arg, mini->env, mini->ret);
+	new_arg_len = cmds_len_for_alloc(arg, mini->env, mini->ret);
 	ex.new_arg = malloc(BUFF_SIZE);
 	if (!ex.new_arg)
 		return (NULL);

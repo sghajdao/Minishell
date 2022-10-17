@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:53 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:34:52 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 10:01:05 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	minishell(t_mini *mini)
 	int		status;
 
 	token = last_token(mini->start, NOSKIP);
-	if (hasAtypeOf(mini->start, "THAI"))
+	if (has_atype_of(mini->start, "THAI"))
 		token = mini->start->next;
 	while (mini->exit == 0 && token)
 	{
@@ -75,7 +75,7 @@ void	minishell(t_mini *mini)
 		mini->parent = 1;
 		mini->last = 1;
 		exec_and_redir(mini, token);
-		dup2_IN_OUT(mini);
+		dup2_in_out(mini);
 		close_multi_fds(mini);
 		reset_all_fds(mini);
 		waitpid(-1, &status, 0);

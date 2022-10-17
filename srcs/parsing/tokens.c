@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:36:10 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:57:40 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	connect_loops(t_mini *mini)
 	while (token)
 	{
 		previous = previous_separ(token, NOSKIP);
-		if (ft_istype(token, ARG) && hasAtypeOf(previous, "TAI"))
+		if (ft_istype(token, ARG) && has_atype_of(previous, "TAI"))
 		{
 			while (is_last_arg(previous) == 0)
 				previous = previous->prev;

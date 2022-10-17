@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:29 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:45:44 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:59:05 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isseparator(char *line, int i, t_mini *mini)
 {
-	if (ft_strchr("<>|", line[i]) && isQuoteOpen(line, i, mini) == 0)
+	if (ft_strchr("<>|", line[i]) && is_quote_open(line, i, mini) == 0)
 		return (1);
 	else
 		return (0);
@@ -67,8 +67,8 @@ int	check_syntax(t_mini *mini, t_token *token)
 {
 	while (token)
 	{
-		if (hasAtypeOf(token, "THAI")
-			&& (!token->next || hasAtypeOf(token->next, "THAIP")))
+		if (has_atype_of(token, "THAI")
+			&& (!token->next || has_atype_of(token->next, "THAIP")))
 		{
 			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
 			if (token->next)
@@ -79,8 +79,8 @@ int	check_syntax(t_mini *mini, t_token *token)
 			mini->ret = 258;
 			return (0);
 		}
-		if (hasAtypeOf(token, "PE") && (!token->prev || \
-			!token->next || hasAtypeOf(token->prev, "THAIP")))
+		if (has_atype_of(token, "PE") && (!token->prev || \
+			!token->next || has_atype_of(token->prev, "THAIP")))
 		{
 			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
 			ft_putstr_fd(token->str, STDERR);

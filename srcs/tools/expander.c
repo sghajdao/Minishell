@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:01 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:41:07 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:59:25 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	cmds_len_for_alloc(const char *arg, t_env *env, int ret)
 			if ((arg[i] == '\0' || ft_isalnum(arg[i]) == 0) && arg[i] != '?')
 				size++;
 			else
-				size += getExpandedValueLen(arg, i, env, ret);
+				size += get_expanded_value_len(arg, i, env, ret);
 			if (ft_isdigit(arg[i]) == 0)
 			{
 				while (arg[i + 1] && is_valid_env_char(arg[i]))

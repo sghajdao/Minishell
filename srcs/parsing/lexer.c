@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:17 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:30:42 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 10:03:13 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ char	*add_space_between_cmds(char *line, t_mini *mini)
 	new = alloc_space(line, mini);
 	while (new && line[i])
 	{
-		if (isQuoteOpen(line, i, mini) == 0 && ft_isseparator(line, i, mini))
+		if (is_quote_open(line, i, mini) == 0 && ft_isseparator(line, i, mini))
 		{
 			new[j++] = ' ';
 			new[j++] = line[i++];
-			if (isQuoteOpen(line, i, mini) == 0 && \
+			if (is_quote_open(line, i, mini) == 0 && \
 			(line[i] == '>' || line[i] == '<'))
 				new[j++] = line[i++];
 			new[j++] = ' ';
@@ -62,7 +62,7 @@ char	*add_space_between_cmds(char *line, t_mini *mini)
 
 int	check_quote(t_mini *mini, char **line)
 {
-	if (isQuoteOpen(*line, 2147483647, mini))
+	if (is_quote_open(*line, 2147483647, mini))
 	{
 		ft_putendl_fd("minishell: syntax error with open quotes", STDERR);
 		ft_memdel(*line);
@@ -87,6 +87,6 @@ char	*lexer(t_mini *mini)
 		mini->ret = g_sig.exit_status;
 	if (check_quote(mini, &line))
 		return (NULL);
-	line = addSpaceBetweenCmds(line, mini);
+	line = add_space_between_cmds(line, mini);
 	return (line);
 }
