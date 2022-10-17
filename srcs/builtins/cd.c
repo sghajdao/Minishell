@@ -92,16 +92,22 @@ void ft_print_msg(void)
 int	ft_cd(char **args, t_mini *mini)
 {
 	int	cd_ret;
+	int	flag;
 
 	if (!args[1])
 		return (change_directory(0, mini->env, mini));
+	flag = 0;
 	if (ft_strcmp(args[1], "-") == 0)
+	{
 		cd_ret = change_directory(1, mini->env, mini);
+		flag = 1;
+	}
 	if (ft_strcmp(args[1], ".") == 0)
 		ft_print_msg();
 	else
 	{
-		update_oldpwd(mini);
+		if (!flag)
+			update_oldpwd(mini);
 		cd_ret = chdir(args[1]);
 		updat_pwd(mini);
 		if (cd_ret < 0)
