@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:09:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:45:28 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:23:55 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ static void	add_t_at_end(char **file)
 	char	*copy;
 
 	while (!access(*file, F_OK))
-    {
-        copy = ft_strdup(*file);
+	{
+		copy = ft_strdup(*file);
 		if (!copy)
 			return ;
-        free(*file);
-        *file = ft_strjoin(copy, "t");
+		free (*file);
+		*file = ft_strjoin(copy, "t");
 		if (!*file)
 			return ;
-        free(copy);
-    }
+		free(copy);
+	}
 }
 
 int	if_empty_line(t_mini *mini, char *line)
@@ -49,11 +49,12 @@ int	if_empty_line(t_mini *mini, char *line)
 	return (0);
 }
 
-static void    read_until_delimiter(t_mini *mini, t_token *tmp, char *file_name, int fd)
+static	void	read_until_delimiter(t_mini *mini, t_token *tmp, \
+	char *file_name, int fd)
 {
 	char	*line;
 	char	*copy;
-	
+
 	while (1)
 	{
 		line = readline("> ");
@@ -80,12 +81,12 @@ static void    read_until_delimiter(t_mini *mini, t_token *tmp, char *file_name,
 
 void	ft_heredoc(t_mini *mini, t_token **lst)
 {
-	char *file_name;
+	char	*file_name;
 	t_token	*tmp;
-	int fd;
+	int		fd;
 	t_list	*copy;
-	tmp = *lst;
 
+	tmp = *lst;
 	while (tmp)
 	{
 		if (tmp && tmp->type == 5)
@@ -96,7 +97,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 			if (!file_name)
 				return ;
 			add_t_at_end(&file_name);
-			fd = open(file_name , O_CREAT | O_TRUNC | O_WRONLY, 0644);
+			fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 			copy = ft_lstnew(file_name);
 			ft_lstadd_back(&mini->file, copy);
 			mini->heredoc = 1;

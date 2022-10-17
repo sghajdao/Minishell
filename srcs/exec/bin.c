@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:20 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:50:33 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:12:18 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	print_error(char *path)
 	return (ret);
 }
 
-static int	exec_cmd(char *path, char ** args, t_env *env, t_mini *mini)
+static	int	exec_cmd(char *path, char **args, t_env *env, t_mini *mini)
 {
 	int		ret;
 	char	**env_array;
@@ -49,7 +49,7 @@ static int	exec_cmd(char *path, char ** args, t_env *env, t_mini *mini)
 	ret = SUCCESS;
 	if (g_sig.pid == 0)
 	{
-		signal(SIGINT,SIG_DFL);
+		signal (SIGINT, SIG_DFL);
 		ptr = env_to_string(env);
 		env_array = ft_split(ptr, '\n');
 		ft_memdel(ptr);
@@ -106,10 +106,12 @@ char	*check_directory(char *bin, char *command)
 	path = NULL;
 	if (!folder)
 		return (NULL);
-	while ((item = readdir(folder)))
+	item = readdir(folder);
+	while (item)
 	{
 		if (ft_strcmp(item->d_name, command) == 0)
 			path = path_join(bin, item->d_name);
+		item = readdir(folder);
 	}
 	closedir(folder);
 	return (path);

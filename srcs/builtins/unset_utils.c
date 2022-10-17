@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:35:55 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 17:32:57 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 08:59:00 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	delete_node(t_mini *mini, t_env *env)
 int	delete_first_node(t_env **env, char **a, int *i)
 {
 	t_env	*tmp;
-	int j = 0;
+
 	if (!env || !*env)
 		return (0);
 	if (ft_strncmp(a[*i], (*env)->value, ft_strlen(a[*i])) == 0)
@@ -56,7 +56,7 @@ int	delete_first_node(t_env **env, char **a, int *i)
 void	cut_and_past(t_mini *mini, t_env **env)
 {
 	t_env	*tmp;
-	
+
 	tmp = (*env)->next->next;
 	delete_node(mini, (*env)->next);
 	(*env)->next = tmp;

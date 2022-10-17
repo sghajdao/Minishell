@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:01 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:36:26 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:08:07 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	env_val_length(const char *env)
 	return (size);
 }
 
-char	*envValueFromStr(char *env)
+char	*env_value_from_str(char *env)
 {
 	int		size_alloc;
 	int		i;
@@ -64,7 +64,8 @@ char	*envValueFromStr(char *env)
 	char	*env_value;
 
 	size_alloc = env_val_length(env) + 1;
-	if (!(env_value = malloc(sizeof(char) * size_alloc)))
+	env_value = malloc(sizeof(char) * size_alloc);
+	if (!env_value)
 		return (NULL);
 	i = 0;
 	while (env[i] && env[i] != '=')

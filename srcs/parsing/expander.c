@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:09 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:37:18 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:27:12 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	varlcopy(char *new_arg, const char *env_value, int pos)
 	return (i);
 }
 
-static void		var_inserting(t_expander *ex, char *arg, t_env *env, int ret)
+static	void	var_inserting(t_expander *ex, char *arg, t_env *env, int ret)
 {
 	char	*env_value;
 
@@ -52,7 +52,8 @@ char	*expander(char *arg, t_mini *mini)
 	if (!arg)
 		return (NULL);
 	new_arg_len = cmdsLenForAlloc(arg, mini->env, mini->ret);
-	if (!(ex.new_arg = malloc(BUFF_SIZE)))
+	ex.new_arg = malloc(BUFF_SIZE);
+	if (!ex.new_arg)
 		return (NULL);
 	ex.i = 0;
 	ex.j = 0;
@@ -61,7 +62,7 @@ char	*expander(char *arg, t_mini *mini)
 		while (arg[ex.j] == EXPANDER)
 		{
 			ex.j++;
-			if ((arg[ex.j] == '\0' || ft_isalnum(arg[ex.j]) == 0)
+			if ((arg[ex.j] == '\0' || ft_isalnum(arg[ex.j]) == 0) \
 			&& arg[ex.j] != '?')
 				ex.new_arg[ex.i++] = '$';
 			else if (ft_counter(arg, '$') % 2 != 0)

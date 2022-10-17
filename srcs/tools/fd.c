@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:14 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:37:43 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:41:31 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	close_fd(int fd)
 		close(fd);
 }
 
-void	dup2_IN_OUT(t_mini *mini)
+void	dup2_in_out(t_mini *mini)
 {
 	dup2(mini->in, STDIN);
 	dup2(mini->out, STDOUT);

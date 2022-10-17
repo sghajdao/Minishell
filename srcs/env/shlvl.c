@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:04 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:36:30 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:08:33 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	invalid_shlvl(const char *str)
 	return (0);
 }
 
-static int	shlvlToInt(const char *str)
+static int	shlvl_to_int(const char *str)
 {
 	int	sign;
 	int	num;

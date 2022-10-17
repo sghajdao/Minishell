@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:29:38 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:35:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 08:55:23 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	error_case(char *args, int *i, int *error_ret)
 		*error_ret = -3;
 	if (*error_ret <= 0)
 	{
-		if  (print_error(*error_ret, args) == ERROR)
+		if (print_error(*error_ret, args) == ERROR)
 		{
 			(*i)++;
 			return (ERROR);

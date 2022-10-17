@@ -6,13 +6,13 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:01 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:37:35 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:41:07 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-int		rtn_size(int ret)
+int	rtn_size(int ret)
 {
 	char	*tmp;
 	int		rtn_len;
@@ -23,7 +23,7 @@ int		rtn_size(int ret)
 	return (rtn_len);
 }
 
-int		getExpandedValueLen(const char *arg, int pos, t_env *env, int ret)
+int	get_expanded_value_len(const char *arg, int pos, t_env *env, int ret)
 {
 	char	*var_value;
 	char	var_name[BUFF_SIZE];
@@ -47,7 +47,7 @@ int		getExpandedValueLen(const char *arg, int pos, t_env *env, int ret)
 	return (i);
 }
 
-int	cmdsLenForAlloc(const char *arg, t_env *env, int ret)
+int	cmds_len_for_alloc(const char *arg, t_env *env, int ret)
 {
 	int	size;
 	int	i;
@@ -76,7 +76,7 @@ int	cmdsLenForAlloc(const char *arg, t_env *env, int ret)
 	return (size);
 }
 
-char	*getEnvVarValue(const char *arg, int pos, t_env *env, int ret)
+char	*get_env_var_value(const char *arg, int pos, t_env *env, int ret)
 {
 	char	*var_value;
 	char	var_name[BUFF_SIZE];

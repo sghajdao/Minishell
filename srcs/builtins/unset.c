@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:27:34 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 20:33:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 08:57:38 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	secret_unset(char **a, t_mini *mini)
 		while (a[i])
 		{
 			if (!delete_first_node(&mini->copy_env, a, &i))
-				continue;
+				continue ;
 			if (ft_strncmp(a[i], env->next->value, \
 				env_name_size(env->next->value)) == 0 && \
 				ft_strlen(a[i]) == env_name_size(env->next->value))
 				cut_and_past(mini, &env);
-			(*i)++;
+			(i)++;
 		}
 		env = env->next;
 	}
@@ -77,7 +77,7 @@ int	ft_unset(char **a, t_mini *mini)
 		while (a[i])
 		{
 			if (!delete_first_node(&mini->env, a, &i))
-				continue;
+				continue ;
 			if (ft_strncmp(a[i], env->next->value, \
 				env_name_size(env->next->value)) == 0 && \
 				ft_strlen(a[i]) == env_name_size(env->next->value))

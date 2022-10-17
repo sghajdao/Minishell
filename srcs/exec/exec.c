@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:26 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:36:53 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:13:18 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static char	**cmd_tab(t_token *start)
 		token = token->next;
 		i++;
 	}
-	if (!(tab = malloc(BUFF_SIZE)))
+	tab = malloc(BUFF_SIZE);
+	if (!tab)
 		return (NULL);
 	token = start->next;
 	tab[0] = start->str;

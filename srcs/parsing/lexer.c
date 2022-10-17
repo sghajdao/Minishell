@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:17 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:37:22 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:30:42 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ char	*alloc_space(char *line, t_mini *mini)
 			count++;
 		i++;
 	}
-	if (!(new = malloc(sizeof(char) * (i + 2 * count + 1))))
+	new = malloc(sizeof(char) * (i + 2 * count + 1));
+	if (!new)
 		return (NULL);
 	return (new);
 }
 
-char	*addSpaceBetweenCmds(char *line, t_mini *mini)
+char	*add_space_between_cmds(char *line, t_mini *mini)
 {
 	char	*new;
 	int		i;
@@ -46,7 +47,8 @@ char	*addSpaceBetweenCmds(char *line, t_mini *mini)
 		{
 			new[j++] = ' ';
 			new[j++] = line[i++];
-			if (isQuoteOpen(line, i, mini) == 0 && (line[i] == '>' || line[i] == '<'))
+			if (isQuoteOpen(line, i, mini) == 0 && \
+			(line[i] == '>' || line[i] == '<'))
 				new[j++] = line[i++];
 			new[j++] = ' ';
 		}
@@ -71,11 +73,11 @@ int	check_quote(t_mini *mini, char **line)
 	return (0);
 }
 
-char    *lexer(t_mini *mini)
+char	*lexer(t_mini *mini)
 {
-    char    *line;
+	char	*line;
 
-    run_signals(1);
+	run_signals(1);
 	line = readline("MINISHELL$ ");
 	if (line && *line)
 		add_history(line);
@@ -86,5 +88,5 @@ char    *lexer(t_mini *mini)
 	if (check_quote(mini, &line))
 		return (NULL);
 	line = addSpaceBetweenCmds(line, mini);
-    return (line);
+	return (line);
 }

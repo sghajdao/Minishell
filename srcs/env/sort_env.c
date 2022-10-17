@@ -6,13 +6,13 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:08 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:36:34 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:09:01 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-int	envStrLen(char **env)
+int	env_str_len(char **env)
 {
 	int	i;
 

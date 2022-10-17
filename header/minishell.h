@@ -100,7 +100,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst);
 int		minipipe(t_mini *mini);
 char	*expander(char *arg, t_mini *mini);
 char	*check_directory(char *bin, char *command);
-int	fork_proces(char *path, char **args, t_env *env, t_mini *mini);
+int		fork_proces(char *path, char **args, t_env *env, t_mini *mini);
 
 /*
 ** EXEC
@@ -125,7 +125,7 @@ int		already_exist_in_env(t_env *env, char *args);
 int		ft_unset(char **args, t_mini *mini);
 void	ft_exit(t_mini *mini, char **cmd);
 void	print_cd_error(char **args);
-char	*getPathFromEnv(t_env *env, const char *var, size_t len);
+char	*get_path_from_env(t_env *env, const char *var, size_t len);
 int		add_to_env(const char *value, t_env *env);
 int		already_exist_in_env(t_env *env, char *args);
 void	concat(char **env, t_env *e);
@@ -142,9 +142,9 @@ void	parser(t_mini *mini);
 t_token	*tokenizer(char *line, t_mini *mini);
 void	connect_loops(t_mini *mini);
 int		is_last_arg(t_token *token);
-int	isQuoteOpen(char *line, int index, t_mini *mini);
+int		is_quote_open(char *line, int index, t_mini *mini);
 void	type_arg_parsing(t_token *token, int separator);
-int	ft_isseparator(char *line, int i, t_mini *mini);
+int		ft_isseparator(char *line, int i, t_mini *mini);
 int		transcend_separ(char *line, int i);
 char    *lexer(t_mini *mini);
 
@@ -169,7 +169,7 @@ t_env	*ft_lstnew_env(void *content);
 /*
 ** FD TOOLS
 */
-void	dup2_IN_OUT(t_mini *mini);
+void	dup2_in_out(t_mini *mini);
 void	close_multi_fds(t_mini *mini);
 void	close_fd(int fd);
 void	reset_all_fds(t_mini *mini);
@@ -192,7 +192,7 @@ t_token	*last_token(t_token *token, int skip);
 ** TYPE TOOLS
 */
 int		ft_istype(t_token *token, int type);
-int		hasAtypeOf(t_token *token, char *types);
+int		has_atype_of(t_token *token, char *types);
 int		has_type(t_token *token, int type);
 int		has_pipe(t_token *token);
 t_token	*next_type(t_token *token, int type, int skip);
@@ -207,9 +207,9 @@ void	unlinking_heredoc_files(t_mini *mini);
 ** EXPANDER
 */
 int		rtn_size(int ret);
-int		getExpandedValueLen(const char *arg, int pos, t_env *env, int ret);
-int		cmdsLenForAlloc(const char *arg, t_env *env, int ret);
-char	*getEnvVarValue(const char *arg, int pos, t_env *env, int ret);
+int		get_expanded_value_len(const char *arg, int pos, t_env *env, int ret);
+int		cmds_len_for_alloc(const char *arg, t_env *env, int ret);
+char	*get_env_var_value(const char *arg, int pos, t_env *env, int ret);
 
 /*
 ** SIGNAL

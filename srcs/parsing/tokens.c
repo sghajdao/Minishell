@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:37:29 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:36:10 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	connect_loops(t_mini *mini)
 	}
 }
 
-int		next_length(char *line, int *i)
+int	next_length(char *line, int *i)
 {
 	char	c;
 	int		count;
@@ -99,8 +99,11 @@ t_token	*get_next_token(char *line, int *i)
 
 	c = ' ';
 	j = 0;
-	if (!(token = malloc(sizeof(t_token)))
-	|| !(token->str = malloc(sizeof(char) * next_length(line, i))))
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->str = malloc(sizeof(char) * next_length(line, i));
+	if (!token->str)
 		return (NULL);
 	while ((line[*i] != ' ' || c != ' ') && line[*i])
 	{

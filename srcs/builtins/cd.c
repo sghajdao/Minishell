@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:27:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 16:03:15 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:53:47 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	updat_pwd(t_mini *mini)
 	ft_memdel(pwd);
 }
 
-void ft_print_msg(void)
+void	ft_print_msg(void)
 {
 	if (!getcwd(NULL, 0))
 		printf("cd: error retrieving current directory: getcwd: \
@@ -92,16 +92,22 @@ void ft_print_msg(void)
 int	ft_cd(char **args, t_mini *mini)
 {
 	int	cd_ret;
+	int	flag;
 
 	if (!args[1])
 		return (change_directory(0, mini->env, mini));
+	flag = 0;
 	if (ft_strcmp(args[1], "-") == 0)
+	{
 		cd_ret = change_directory(1, mini->env, mini);
+		flag = 1;
+	}
 	if (ft_strcmp(args[1], ".") == 0)
 		ft_print_msg();
 	else
 	{
-		update_oldpwd(mini);
+		if (!flag)
+			update_oldpwd(mini);
 		cd_ret = chdir(args[1]);
 		updat_pwd(mini);
 		if (cd_ret < 0)

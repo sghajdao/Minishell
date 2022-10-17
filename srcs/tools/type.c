@@ -6,13 +6,13 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:42 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:38:03 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:46:18 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-int		ft_istype(t_token *token, int type)
+int	ft_istype(t_token *token, int type)
 {
 	if (token && token->type == type)
 		return (1);
@@ -20,7 +20,7 @@ int		ft_istype(t_token *token, int type)
 		return (0);
 }
 
-int	hasAtypeOf(t_token *token, char *types)
+int	has_atype_of(t_token *token, char *types)
 {
 	if (ft_strchr(types, ' ') && ft_istype(token, EMPTY))
 		return (1);

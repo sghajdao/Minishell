@@ -39,7 +39,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(CPPFLAGS) $(LIBFT) $(LDFLAGS) -lreadline
 	@echo "\n\033[0;42mDone !"
 
-%.o:%.c HEADER
+%.o:%.c $(HEADER)
 	@printf "\033[0;33mGenerating minishell objects... %-10.10s\r" $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 

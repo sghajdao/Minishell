@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:35:32 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:35:33 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 08:56:18 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	get_env_name(char *dest, const char *src)
 	int	i;
 
 	i = 0;
-	while (src[i] && (ft_strlen(src) < BUFF_SIZE) && src[i] != '=' && src[i] != '+')
+	while (src[i] && (ft_strlen(src) < BUFF_SIZE) && \
+	src[i] != '=' && src[i] != '+')
 	{
 		dest[i] = src[i];
 		i++;

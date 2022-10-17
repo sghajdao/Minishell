@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:35:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:52:55 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 09:02:46 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_cd_error(char **args)
 	ft_putendl_fd(args[1], 2);
 }
 
-char	*getPathFromEnv(t_env *env, const char *var, size_t len)
+char	*get_path_from_env(t_env *env, const char *var, size_t len)
 {
 	int		i;
 	int		j;
@@ -37,7 +37,8 @@ char	*getPathFromEnv(t_env *env, const char *var, size_t len)
 		if (ft_strncmp(env->value, var, len) == 0)
 		{
 			s_alloc = ft_strlen(env->value) - len;
-			if (!(oldpwd = malloc(sizeof(char) * s_alloc + 1)))
+			oldpwd = malloc(sizeof(char) * s_alloc + 1);
+			if (!oldpwd)
 				return (NULL);
 			i = 0;
 			j = 0;
