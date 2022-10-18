@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-LDFLAGS="-L/goinfre/sghajdao/homebrew/opt/readline/lib" -g
+LDFLAGS="-L/goinfre/sghajdao/homebrew/opt/readline/lib"
 
 CPPFLAGS="-I/goinfre/sghajdao/homebrew/opt/readline/include"
 

@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:36 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:37:25 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 13:38:57 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	parser(t_mini *mini)
 	line = lexer(mini);
 	if (!line)
 		return ;
-	mini->start = tokenizer(line, mini);
+	mini->start = tokenizer(line);
 	ft_heredoc(mini, &mini->start);
 	tmp = mini->start;
 	ft_memdel(line);
-	connect_loops(mini);
+	arrengement_token(mini);
 	token = mini->start;
 	while (token)
 	{

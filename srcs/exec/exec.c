@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:26 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:13:18 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 08:03:42 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,8 @@ static char	**cmd_tab(t_token *start)
 	if (!start)
 		return (NULL);
 	token = start->next;
-	i = 2;
 	while (token && token->type < TRUNC)
-	{
 		token = token->next;
-		i++;
-	}
 	tab = malloc(BUFF_SIZE);
 	if (!tab)
 		return (NULL);
@@ -71,7 +67,7 @@ int	executor(char **args, t_env *env, t_mini *mini)
 
 	i = 0;
 	ret = UNKNOWN_COMMAND;
-	while (env && env->value && ft_strncmp(env->value, "PATH=", 5) != 0)
+	while (env && env->value && ft_strncmp(env->value, "PATH=", 5))
 		env = env->next;
 	if (env == NULL || env->next == NULL)
 		return (fork_proces(args[0], args, env, mini));

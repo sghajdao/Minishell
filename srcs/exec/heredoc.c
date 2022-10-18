@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:09:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:23:55 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 07:34:57 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	handler(int sig)
 	if (sig == SIGINT)
 	{
 		close(0);
+		g_sig.sigint = 1;
+		g_sig.exit_status = 1;
 		write(2, "\n", 1);
 	}
 }
@@ -98,7 +100,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 				return ;
 			add_t_at_end(&file_name);
 			fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-			copy = ft_lstnew(file_name);
+			ft_lstnew(file_name);
 			ft_lstadd_back(&mini->file, copy);
 			mini->heredoc = 1;
 			signal(SIGINT, handler);

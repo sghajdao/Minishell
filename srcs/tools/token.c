@@ -6,11 +6,33 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:36 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:37:59 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:17:19 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
+
+void	rearrengement(t_mini *mini, t_token *token, t_token *previous)
+{
+	while (is_first_arg(previous) == 0)
+		previous = previous->prev;
+	token->prev->next = token->next;
+	if (token->next)
+		token->next->prev = token->prev;
+	token->prev = previous;
+	if (previous)
+		token->next = previous->next;
+	else
+	{
+		token->next = mini->start;
+		previous = token;
+	}
+	previous->next->prev = token;
+	if (mini->start->prev)
+		mini->start = mini->start->prev;
+	else
+		previous->next = token;
+}
 
 t_token	*next_separator(t_token *token, int skip)
 {
@@ -41,4 +63,26 @@ t_token	*last_token(t_token *token, int skip)
 			token = token->next;
 	}
 	return (token);
+}
+
+void	take_off_quotes(t_token *token, char *line, int *i)
+{
+	char	c;
+	int		j;
+	
+	c = ' ';
+	j = 0;
+	while ((line[*i] != ' ' || c != ' ') && line[*i])
+	{
+		if (c == ' ' && (line[*i] == '\'' || line[*i] == '\"'))
+			c = line[(*i)++];
+		else if (c != ' ' && line[*i] == c)
+		{
+			c = ' ';
+			(*i)++;
+		}
+		else
+			token->str[j++] = line[(*i)++];
+	}
+	token->str[j] = '\0';
 }

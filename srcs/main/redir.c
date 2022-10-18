@@ -6,24 +6,35 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:54:36 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 20:37:28 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
+static int	expanding(t_mini *mini, t_token *token, char **file)
+{
+	if (mini->type_quotes == 0 || mini->type_quotes == 1)
+	{
+		*file = expander(token->str, mini);
+		if (!*file)
+			return (ERROR);
+	}
+	else
+	{
+		*file = ft_strdup(token->str);
+		if (!*file)
+			return (ERROR);
+	}
+	return (SUCCESS);
+}
+
 void	output(t_mini *mini, t_token *token, int type)
 {
 	char	*file;
 
-	if (mini->type_quotes == 0 || mini->type_quotes == 1)
-		file = expander(token->str, mini);
-	else
-	{
-		file = ft_strdup(token->str);
-		if (!file)
-			return ;
-	}
+	if (expanding(mini, token, &file))
+		return ;
 	close_fd(mini->fdout);
 	if (type == TRUNC)
 		mini->fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
@@ -46,14 +57,8 @@ void	input(t_mini *mini, t_token *token)
 {
 	char	*file;
 
-	if (mini->type_quotes == 0 || mini->type_quotes == 1)
-		file = expander(token->str, mini);
-	else
-	{
-		file = ft_strdup(token->str);
-		if (!file)
-			return ;
-	}
+	if (expanding(mini, token, &file))
+		return ;
 	close_fd(mini->fdin);
 	mini->fdin = open(file, O_RDONLY, S_IRWXU);
 	if (mini->fdin == -1)

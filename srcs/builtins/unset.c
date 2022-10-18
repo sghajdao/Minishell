@@ -1,4 +1,5 @@
 /* ************************************************************************** */
+
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
@@ -6,7 +7,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:27:34 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 08:57:38 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 07:05:23 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,58 +34,74 @@ void	ft_error(char **a)
 	}
 }
 
-void	secret_unset(char **a, t_mini *mini)
+void	unset_middle(t_mini *mini, char *a, int flag)
 {
-	t_env	*env;
-	int		i;
+	t_env *current;
+	t_env *temp;
 
-	env = mini->copy_env;
-	if (!(a[1]))
-		return ;
-	i = 1;
-	ft_error(a);
-	while (env && env->next)
-	{
-		i = 1;
-		while (a[i])
-		{
-			if (!delete_first_node(&mini->copy_env, a, &i))
-				continue ;
-			if (ft_strncmp(a[i], env->next->value, \
-				env_name_size(env->next->value)) == 0 && \
-				ft_strlen(a[i]) == env_name_size(env->next->value))
-				cut_and_past(mini, &env);
-			(i)++;
-		}
-		env = env->next;
-	}
+	if (flag == 0)
+		current = mini->copy_env;
+	else
+		current = mini->env;
+	while(current->next != NULL)
+    {
+		if (!ft_strncmp(a, current->next->value, ft_strlen(a)) && \
+			ft_strlen(a) == env_name_size(current->next->value))
+        {
+            temp = current->next;
+            current->next = current->next->next;
+            ft_memdel(temp->value);
+			ft_memdel(temp);
+            break;
+        }
+        else
+            current = current->next;
+    }
 }
 
-int	ft_unset(char **a, t_mini *mini)
+int secret_unset(char **a, t_mini *mini)
 {
-	t_env	*env;
-	t_env	*tmp;
-	int		i;
-	int		error;
+      t_env *temp;
+	  int i = 1;
 
-	secret_unset(a, mini);
-	env = mini->env;
-	if (!(a[1]))
-		return (SUCCESS);
-	while (env && env->next)
-	{
-		i = 1;
-		while (a[i])
-		{
-			if (!delete_first_node(&mini->env, a, &i))
-				continue ;
-			if (ft_strncmp(a[i], env->next->value, \
-				env_name_size(env->next->value)) == 0 && \
-				ft_strlen(a[i]) == env_name_size(env->next->value))
-				cut_and_past(mini, &env);
-			i++;
-		}
-		env = env->next;
-	}
-	return (SUCCESS);
+      ft_error(a);
+	  while (a[i])
+	  {
+		if (!ft_strncmp(a[i], mini->copy_env->value, ft_strlen(a[i])) && \
+			ft_strlen(a[i]) == env_name_size(mini->copy_env->value))
+      	{
+      	    temp = mini->copy_env;
+      	    mini->copy_env = mini->copy_env->next;
+      	    ft_memdel(temp->value);
+			ft_memdel(temp);
+      	}
+      	else
+			unset_middle(mini, a[i], 0);
+		i++;
+	  }
+	  return (0);
+}
+
+int ft_unset(char **a, t_mini *mini)
+{
+      t_env *temp;
+	  int i = 1;
+
+      secret_unset(a, mini);
+	  while (a[i])
+	  {
+		if (!ft_strncmp(a[i], mini->env->value, ft_strlen(a[i])) && \
+			ft_strlen(a[i]) == env_name_size(mini->env->value))
+      	{
+			
+      	    temp = mini->env;
+      	    mini->env = mini->env->next;
+      	    ft_memdel(temp->value);
+			ft_memdel(temp);
+      	}
+      	else
+			unset_middle(mini, a[i], 1);
+		i++;
+	  }
+	  return (0);
 }

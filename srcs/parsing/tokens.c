@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:57:40 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:28:26 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	type_arg_parsing(t_token *token, int separator)
 		token->type = ARG;
 }
 
-void	connect_loops(t_mini *mini)
+void	arrengement_token(t_mini *mini)
 {
 	t_token	*token;
 	t_token	*previous;
@@ -42,26 +42,7 @@ void	connect_loops(t_mini *mini)
 	{
 		previous = previous_separ(token, NOSKIP);
 		if (ft_istype(token, ARG) && has_atype_of(previous, "TAI"))
-		{
-			while (is_last_arg(previous) == 0)
-				previous = previous->prev;
-			token->prev->next = token->next;
-			if (token->next)
-				token->next->prev = token->prev;
-			token->prev = previous;
-			if (previous)
-				token->next = previous->next;
-			else
-			{
-				token->next = mini->start;
-				previous = token;
-			}
-			previous->next->prev = token;
-			if (mini->start->prev)
-				mini->start = mini->start->prev;
-			else
-				previous->next = token;
-		}
+			rearrengement(mini, token, previous);
 		token = token->next;
 	}
 }
@@ -94,47 +75,32 @@ int	next_length(char *line, int *i)
 t_token	*get_next_token(char *line, int *i)
 {
 	t_token	*token;
-	char	c;
-	int		j;
 
-	c = ' ';
-	j = 0;
-	token = malloc(sizeof(t_token));
+	token = malloc(BUFF_SIZE);
 	if (!token)
 		return (NULL);
-	token->str = malloc(sizeof(char) * next_length(line, i));
+	token->str = malloc(BUFF_SIZE);
 	if (!token->str)
 		return (NULL);
-	while ((line[*i] != ' ' || c != ' ') && line[*i])
-	{
-		if (c == ' ' && (line[*i] == '\'' || line[*i] == '\"'))
-			c = line[(*i)++];
-		else if (c != ' ' && line[*i] == c)
-		{
-			c = ' ';
-			(*i)++;
-		}
-		else
-			token->str[j++] = line[(*i)++];
-	}
-	token->str[j] = '\0';
+	take_off_quotes(token, line, i);
 	return (token);
 }
 
-t_token	*tokenizer(char *line, t_mini *mini)
+t_token	*tokenizer(char *line)
 {
 	t_token	*previous;
 	t_token	*next;
 	int		i;
 
 	next = NULL;
-	(void)mini;
 	previous = NULL;
 	i = 0;
 	ft_skip_space(line, &i);
 	while (line[i])
 	{
 		next = get_next_token(line, &i);
+		if (!next)
+			return (NULL);
 		next->prev = previous;
 		if (previous)
 			previous->next = next;

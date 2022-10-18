@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:35:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:02:46 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 08:10:56 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,28 @@ void	print_cd_error(char **args)
 	ft_putendl_fd(args[1], 2);
 }
 
+static void	copy_value(t_env *env, size_t len, char *oldpwd)
+{
+	int	j;
+	int	i;
+
+	j = 0;
+	i = 0;
+	while (env->value[i++])
+	{
+		if (i > (int)len)
+			oldpwd[j++] = env->value[i];
+	}
+	oldpwd[j] = '\0';
+}
+
 char	*get_path_from_env(t_env *env, const char *var, size_t len)
 {
-	int		i;
-	int		j;
 	int		s_alloc;
 	char	*oldpwd;
 
+	if (!env)
+		return (NULL);
 	while (env->next != NULL && env)
 	{
 		if (ft_strncmp(env->value, var, len) == 0)
@@ -40,14 +55,8 @@ char	*get_path_from_env(t_env *env, const char *var, size_t len)
 			oldpwd = malloc(sizeof(char) * s_alloc + 1);
 			if (!oldpwd)
 				return (NULL);
-			i = 0;
-			j = 0;
-			while (env->value[i++])
-			{
-				if (i > (int)len)
-					oldpwd[j++] = env->value[i];
-			}
-			oldpwd[j] = '\0';
+			copy_value(env, len, oldpwd);
+			ft_putendl_fd(oldpwd, STDOUT);
 			return (oldpwd);
 		}
 		env = env->next;

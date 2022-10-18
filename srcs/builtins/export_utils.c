@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:35:32 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 08:56:18 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 08:11:05 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	already_exist_in_env(t_env *env, char *args)
 	char	env_name[BUFF_SIZE];
 	char	var_name[BUFF_SIZE];
 
+	if (!env)
+		return (1);
 	get_env_name(var_name, args);
 	while (env)
 	{

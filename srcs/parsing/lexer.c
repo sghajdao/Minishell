@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:17 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 10:03:13 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:23:20 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*alloc_space(char *line, t_mini *mini)
 			count++;
 		i++;
 	}
-	new = malloc(sizeof(char) * (i + 2 * count + 1));
+	new = malloc(BUFF_SIZE);
 	if (!new)
 		return (NULL);
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:29 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:59:05 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:49:55 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	is_quote_open(char *line, int index, t_mini *mini)
 	return (open);
 }
 
-int	is_last_arg(t_token *token)
+int	is_first_arg(t_token *token)
 {
 	t_token	*previous;
 
@@ -63,6 +63,22 @@ int	is_last_arg(t_token *token)
 		return (0);
 }
 
+static void	print_error(t_mini *mini, t_token *token, int flag)
+{
+	ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
+	if (flag)
+	{
+		if (token->next)
+			ft_putstr_fd(token->next->str, STDERR);
+		else
+			ft_putstr_fd("newline", STDERR);
+	}
+	else
+		ft_putstr_fd(token->str, STDERR);
+	ft_putendl_fd("'", STDERR);
+	mini->ret = 258;
+}
+
 int	check_syntax(t_mini *mini, t_token *token)
 {
 	while (token)
@@ -70,22 +86,13 @@ int	check_syntax(t_mini *mini, t_token *token)
 		if (has_atype_of(token, "THAI")
 			&& (!token->next || has_atype_of(token->next, "THAIP")))
 		{
-			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
-			if (token->next)
-				ft_putstr_fd(token->next->str, STDERR);
-			else
-				ft_putstr_fd("newline", STDERR);
-			ft_putendl_fd("'", STDERR);
-			mini->ret = 258;
+			print_error(mini, token, 1);
 			return (0);
 		}
 		if (has_atype_of(token, "PE") && (!token->prev || \
 			!token->next || has_atype_of(token->prev, "THAIP")))
 		{
-			ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
-			ft_putstr_fd(token->str, STDERR);
-			ft_putendl_fd("'", STDERR);
-			mini->ret = 258;
+			print_error(mini, token, 0);
 			return (0);
 		}
 		token = token->next;

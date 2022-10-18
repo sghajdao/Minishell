@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:09 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 10:00:29 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/17 12:24:56 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ static	void	var_inserting(t_expander *ex, char *arg, t_env *env, int ret)
 	}
 }
 
+static int	init_ex(t_expander *ex)
+{
+	if (!ex->new_arg)
+		return (ERROR);
+	ex->i = 0;
+	ex->j = 0;
+	return (SUCCESS);
+}
+
 char	*expander(char *arg, t_mini *mini)
 {
 	t_expander	ex;
@@ -53,10 +62,8 @@ char	*expander(char *arg, t_mini *mini)
 		return (NULL);
 	new_arg_len = cmds_len_for_alloc(arg, mini->env, mini->ret);
 	ex.new_arg = malloc(BUFF_SIZE);
-	if (!ex.new_arg)
+	if (init_ex(&ex))
 		return (NULL);
-	ex.i = 0;
-	ex.j = 0;
 	while (ex.i < new_arg_len && arg[ex.j])
 	{
 		while (arg[ex.j] == EXPANDER)

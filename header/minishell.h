@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/17 13:29:30 by sghajdao          #+#    #+#             */
+/*   Updated: 2022/10/18 07:02:31 by sghajdao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -139,9 +151,9 @@ int		error_case(char *args, int *i, int *error_ret);
 ** PARSING
 */
 void	parser(t_mini *mini);
-t_token	*tokenizer(char *line, t_mini *mini);
-void	connect_loops(t_mini *mini);
-int		is_last_arg(t_token *token);
+t_token	*tokenizer(char *line);
+void	arrengement_token(t_mini *mini);
+int		is_first_arg(t_token *token);
 int		is_quote_open(char *line, int index, t_mini *mini);
 void	type_arg_parsing(t_token *token, int separator);
 int		ft_isseparator(char *line, int i, t_mini *mini);
@@ -187,6 +199,8 @@ void	freeing_tab(char **tab);
 t_token	*next_separator(t_token *token, int skip);
 t_token	*previous_separ(t_token *token, int skip);
 t_token	*last_token(t_token *token, int skip);
+void	rearrengement(t_mini *mini, t_token *token, t_token *previous);
+void	take_off_quotes(t_token *token, char *line, int *i);
 
 /*
 ** TYPE TOOLS
