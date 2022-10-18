@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:36 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 14:17:19 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 08:25:20 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	take_off_quotes(t_token *token, char *line, int *i)
 {
 	char	c;
 	int		j;
-	
+
 	c = ' ';
 	j = 0;
 	while ((line[*i] != ' ' || c != ' ') && line[*i])

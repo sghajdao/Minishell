@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:43 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 07:27:50 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 08:25:03 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	restore_prompt(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 	g_sig.exit_status = 1;
-	g_sig.sigint = 1;		
+	g_sig.sigint = 1;
 }
 
 void	ctrl_c(int sig)
