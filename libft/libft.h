@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 08:19:35 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 20:26:28 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 08:27:01 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int		ft_strisnum(const char *str);
 void	ft_putstr(char *s);
 void	ft_skip_spacenl(const char *str, int *i);
 void	ft_skip_space(const char *str, int *i);
-int 	ft_strcmpall(char *str, int start, int c);
+int		ft_strcmpall(char *str, int start, int c);
 int		ft_search(char *str, int c);
-size_t  ft_counter(char *str, int c);
-int 	ft_charscmp(char *s1, char *s2);
+size_t	ft_counter(char *str, int c);
+int		ft_charscmp(char *s1, char *s2);
 
 #endif

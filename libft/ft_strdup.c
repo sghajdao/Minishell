@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 08:22:38 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 15:29:35 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 08:33:55 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strdup(const char *src)
 		i++;
 	str = (char *)malloc(i * sizeof(char) + 1);
 	if (str == NULL)
-		return(NULL) ;
+		return (NULL);
 	i = 0;
 	while (src[i])
 	{

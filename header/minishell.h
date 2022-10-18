@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:29:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 07:02:31 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 08:37:06 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ typedef struct s_expander
 	int		j;
 }	t_expander;
 
+t_sig	g_sig;
+
 /*
 ** MINISHELL
 */
@@ -158,7 +160,7 @@ int		is_quote_open(char *line, int index, t_mini *mini);
 void	type_arg_parsing(t_token *token, int separator);
 int		ft_isseparator(char *line, int i, t_mini *mini);
 int		transcend_separ(char *line, int i);
-char    *lexer(t_mini *mini);
+char	*lexer(t_mini *mini);
 
 /*
 ** ENV
@@ -214,7 +216,7 @@ t_token	*next_type(t_token *token, int type, int skip);
 /*
 ** EXEC TOOLS
 */
-int 	stop_reading(t_mini *mini, t_token *tmp, char *file_name);
+int		stop_reading(t_mini *mini, t_token *tmp, char *file_name);
 void	unlinking_heredoc_files(t_mini *mini);
 
 /*
@@ -235,7 +237,5 @@ void	run_signals(int sig);
 void	restore_prompt(int sig);
 void	ctrl_c(int sig);
 void	back_slash(int sig);
-
-t_sig g_sig;
 
 #endif

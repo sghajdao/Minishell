@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:32:13 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/13 12:32:14 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 08:34:43 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_skip_spacenl(const char *str, int *i)
 {
-	while ((str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\n')
-	|| (str[*i] == '\r' || str[*i] == '\v' || str[*i] == '\f'))
+	while ((str[*i] == ' ' || str[*i] == '\t' || str[*i] == '\n') \
+			|| (str[*i] == '\r' || str[*i] == '\v' || str[*i] == '\f'))
 		(*i)++;
 }
