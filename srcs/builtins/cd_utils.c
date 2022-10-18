@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:35:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:17:43 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,45 @@ char	*get_path_from_env(t_env *env, const char *var, size_t len)
 		env = env->next;
 	}
 	return (NULL);
+}
+
+int	update_oldpwd(t_mini *mini)
+{
+	char	*oldpwd;
+	char	cwd[PATH_MAX];
+
+	if (getcwd(cwd, PATH_MAX) == NULL)
+		return (ERROR);
+	oldpwd = ft_strjoin("OLDPWD=", cwd);
+	if (!oldpwd)
+		return (ERROR);
+	if (already_exist_in_env(mini->env, oldpwd) == 0 && \
+		already_exist_in_env(mini->env, "PWD"))
+		add_to_env(oldpwd, mini->env);
+	else if (already_exist_in_env(mini->env, "PWD") == 0 && \
+		already_exist_in_env(mini->env, oldpwd) == 0)
+		add_to_env("OLDPWD=", mini->env);
+	if (already_exist_in_env(mini->copy_env, oldpwd) == 0 && \
+		already_exist_in_env(mini->copy_env, "PWD"))
+		add_to_env(oldpwd, mini->copy_env);
+	else if (already_exist_in_env(mini->copy_env, "PWD") == 0 && \
+		already_exist_in_env(mini->copy_env, oldpwd) == 0)
+		add_to_env("OLDPWD=", mini->copy_env);
+	ft_memdel(oldpwd);
+	return (SUCCESS);
+}
+
+void	updat_pwd(t_mini *mini)
+{
+	char	*pwd;
+	char	cwd[PATH_MAX];
+
+	if (getcwd(cwd, PATH_MAX) == NULL)
+		return ;
+	pwd = ft_strjoin("PWD=", cwd);
+	if (!pwd)
+		return ;
+	already_exist_in_env(mini->env, pwd);
+	already_exist_in_env(mini->copy_env, pwd);
+	ft_memdel(pwd);
 }

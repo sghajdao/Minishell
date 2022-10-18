@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:04 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:31:02 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	increment_shlvl(t_env *env)
 			ft_memdel(env->value);
 			shlvl = ft_itoa(shell_level);
 			env->value = ft_strjoin("SHLVL=", shlvl);
+			if (!env->value)
+				return ;
 			ft_memdel(shlvl);
 			return ;
 		}

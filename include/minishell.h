@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:29:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 11:55:24 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:18:09 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ int		already_exist_in_env(t_env *env, char *args);
 void	concat(char **env, t_env *e);
 size_t	env_name_size(char *env);
 int		error_case(char *args, int *i, int *error_ret);
+int		update_oldpwd(t_mini *mini);
+void	updat_pwd(t_mini *mini);
 
 /*
 ** PARSING

@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:29:58 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:30:19 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	if_no_env(t_env **env, t_mini *mini, int flag)
 
 	get = get_pwd();
 	pwd = ft_strjoin("PWD=", get);
+	if (!pwd)
+		return ;
 	free(get);
 	*env = ft_lstnew_env("PATH=/usr/bin:/bin:/usr/sbin:/sbin");
 	ft_lstadd_back_env(env, ft_lstnew_env("SHLVL=0"));

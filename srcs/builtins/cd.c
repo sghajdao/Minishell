@@ -6,37 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:27:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:26:23 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static int	update_oldpwd(t_mini *mini)
-{
-	char	*oldpwd;
-	char	cwd[PATH_MAX];
-
-	if (getcwd(cwd, PATH_MAX) == NULL)
-		return (ERROR);
-	oldpwd = ft_strjoin("OLDPWD=", cwd);
-	if (!oldpwd)
-		return (ERROR);
-	if (already_exist_in_env(mini->env, oldpwd) == 0 && \
-		already_exist_in_env(mini->env, "PWD"))
-		add_to_env(oldpwd, mini->env);
-	else if (already_exist_in_env(mini->env, "PWD") == 0 && \
-		already_exist_in_env(mini->env, oldpwd) == 0)
-		add_to_env("OLDPWD=", mini->env);
-	if (already_exist_in_env(mini->copy_env, oldpwd) == 0 && \
-		already_exist_in_env(mini->copy_env, "PWD"))
-		add_to_env(oldpwd, mini->copy_env);
-	else if (already_exist_in_env(mini->copy_env, "PWD") == 0 && \
-		already_exist_in_env(mini->copy_env, oldpwd) == 0)
-		add_to_env("OLDPWD=", mini->copy_env);
-	ft_memdel(oldpwd);
-	return (SUCCESS);
-}
 
 static int	change_directory(int option, t_env *env, t_mini *mini)
 {
@@ -46,7 +20,6 @@ static int	change_directory(int option, t_env *env, t_mini *mini)
 	env_path = NULL;
 	if (option == 0)
 	{
-		update_oldpwd(mini);
 		env_path = get_path_from_env(env, "HOME", 4);
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: HOME not set", STDERR);
@@ -60,33 +33,19 @@ static int	change_directory(int option, t_env *env, t_mini *mini)
 			ft_putendl_fd("minishell : cd: OLDPWD not set", STDERR);
 		if (!env_path)
 			return (ERROR);
-		update_oldpwd(mini);
 	}
+	update_oldpwd(mini);
 	ret = chdir(env_path);
+	updat_pwd(mini);
 	ft_memdel(env_path);
 	return (ret);
-}
-
-void	updat_pwd(t_mini *mini)
-{
-	char	*pwd;
-	char	cwd[PATH_MAX];
-
-	if (getcwd(cwd, PATH_MAX) == NULL)
-		return ;
-	pwd = ft_strjoin("PWD=", cwd);
-	if (!pwd)
-		return ;
-	already_exist_in_env(mini->env, pwd);
-	already_exist_in_env(mini->copy_env, pwd);
-	ft_memdel(pwd);
 }
 
 void	ft_print_msg(void)
 {
 	if (!getcwd(NULL, 0))
 		printf("cd: error retrieving current directory: getcwd: \
-			cannot access parent directories: No such file or directory\n");
+cannot access parent directories: No such file or directory\n");
 }
 
 int	ft_cd(char **args, t_mini *mini)
@@ -94,7 +53,7 @@ int	ft_cd(char **args, t_mini *mini)
 	int	cd_ret;
 	int	flag;
 
-	if (!args[1])
+	if (!args[1] || (!ft_strncmp(args[1], "~", 1) && ft_strlen(args[1]) == 1))
 		return (change_directory(0, mini->env, mini));
 	flag = 0;
 	if (ft_strcmp(args[1], "-") == 0)

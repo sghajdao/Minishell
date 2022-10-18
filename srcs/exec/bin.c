@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:20 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 12:40:05 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:33:19 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,11 @@ static char	*path_join(const char *s1, const char *s2)
 	char	*tmp;
 
 	tmp = ft_strjoin(s1, "/");
+	if (!tmp)
+		return (NULL);
 	path = ft_strjoin(tmp, s2);
+	if (!path)
+		return (NULL);
 	ft_memdel(tmp);
 	return (path);
 }
