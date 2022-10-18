@@ -6,11 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 20:37:28 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../include/minishell.h"
 
 static int	expanding(t_mini *mini, t_token *token, char **file)
 {

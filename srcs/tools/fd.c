@@ -6,11 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:14 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:41:31 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../include/minishell.h"
 
 void	close_fd(int fd)
 {

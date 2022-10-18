@@ -6,11 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:29:41 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/16 15:35:51 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../include/minishell.h"
 
 int	ft_pwd(t_mini *mini)
 {

@@ -6,11 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 08:22:53 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 08:24:14 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_error(char **a)
 {
@@ -31,6 +31,16 @@ void	ft_error(char **a)
 		}
 		i++;
 	}
+}
+
+size_t	env_name_size(char *env)
+{
+	size_t	i;
+
+	i = 0;
+	while (env[i] && env[i] != '=')
+		i++;
+	return (i);
 }
 
 void	unset_middle(t_mini *mini, char *a, int flag)

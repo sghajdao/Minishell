@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:29:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 08:37:06 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 09:23:16 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,6 @@ int		add_to_env(const char *value, t_env *env);
 int		already_exist_in_env(t_env *env, char *args);
 void	concat(char **env, t_env *e);
 size_t	env_name_size(char *env);
-void	delete_node(t_mini *mini, t_env *env);
-int		delete_first_node(t_env **env, char **a, int *i);
-void	cut_and_past(t_mini *mini, t_env **env);
 int		error_case(char *args, int *i, int *error_ret);
 
 /*

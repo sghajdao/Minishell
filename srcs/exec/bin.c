@@ -6,11 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:20 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 07:39:11 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:23:17 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../include/minishell.h"
 
 static int	print_error(char *path)
 {

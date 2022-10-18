@@ -6,11 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:53 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 20:43:00 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:23:05 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../include/minishell.h"
 
 void	initialization(t_mini *mini, char **env)
 {

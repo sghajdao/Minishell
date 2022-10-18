@@ -6,11 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:37:51 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/17 09:43:53 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../include/minishell.h"
 
 int	stop_reading(t_mini *mini, t_token *tmp, char *file_name)
 {
@@ -26,12 +26,17 @@ int	stop_reading(t_mini *mini, t_token *tmp, char *file_name)
 
 void	unlinking_heredoc_files(t_mini *mini)
 {
+	t_list	*copy;
+
 	if (mini->heredoc)
 	{
 		while (mini->file)
 		{
+			copy = mini->file;
 			unlink(mini->file->content);
 			mini->file = mini->file->next;
+			free(copy->content);
+			free(copy);
 		}
 	}
 }

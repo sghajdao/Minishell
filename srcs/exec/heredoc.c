@@ -6,11 +6,11 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:09:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 07:34:57 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../include/minishell.h"
 
 static void	handler(int sig)
 {
@@ -86,7 +86,6 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 	char	*file_name;
 	t_token	*tmp;
 	int		fd;
-	t_list	*copy;
 
 	tmp = *lst;
 	while (tmp)
@@ -100,8 +99,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 				return ;
 			add_t_at_end(&file_name);
 			fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-			ft_lstnew(file_name);
-			ft_lstadd_back(&mini->file, copy);
+			ft_lstadd_back(&mini->file, ft_lstnew(file_name));
 			mini->heredoc = 1;
 			signal(SIGINT, handler);
 			read_until_delimiter(mini, tmp, file_name, fd);

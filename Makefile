@@ -8,9 +8,9 @@ CPPFLAGS="-I/goinfre/sghajdao/homebrew/opt/readline/include"
 
 LIBFT = libft/libft.a
 
-HEADER = ./header/minishell.h
+INCLUDE = ./include/minishell.h
 
-BUILTINS = cd echo env exit export pwd unset cd_utils export_utils unset_utils
+BUILTINS = cd echo env exit export pwd unset cd_utils export_utils
 
 ENV = env get_env sort_env shlvl env_tools
 
@@ -39,7 +39,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(CPPFLAGS) $(LIBFT) $(LDFLAGS) -lreadline
 	@echo "\n\033[0;42mDone !"
 
-%.o:%.c $(HEADER)
+%.o:%.c $(INCLUDE)
 	@printf "\033[0;33mGenerating minishell objects... %-10.10s\r" $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 
