@@ -2,10 +2,6 @@ NAME = minishell
 
 CC = cc
 
-LDFLAGS="-L/goinfre/sghajdao/homebrew/opt/readline/lib"
-
-CPPFLAGS="-I/goinfre/sghajdao/homebrew/opt/readline/include"
-
 LIBFT = libft/libft.a
 
 INCLUDE = ./include/minishell.h
@@ -36,15 +32,15 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "\n"
 	@make bonus -C libft/
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(CPPFLAGS) $(LIBFT) $(LDFLAGS) -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -L$(shell brew --prefix readline)/lib -lreadline
 	@echo "\n\033[0;42mDone !"
 
 %.o:%.c $(INCLUDE)
-	@printf "\033[0;33mGenerating minishell objects... %-10.10s\r" $@
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf "\x1b[35mGenerating minishell objects... %-10.10s\r" $@
+	@$(CC) $(CFLAGS) -c -I$(shell brew --prefix readline)/include $< -o $@
 
 clean:
-	@echo "\033[0;31m\nDeleting objects...\033[0;37m"
+	@echo "\x1b[41m\nObjects has been deleted\033[0;37m"
 	@make clean -C libft/
 	@rm -rf $(OBJ)
 

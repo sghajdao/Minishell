@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:29:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 09:23:16 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 11:55:24 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,8 +227,6 @@ char	*get_env_var_value(const char *arg, int pos, t_env *env, int ret);
 /*
 ** SIGNAL
 */
-void	sig_int(int code);
-void	sig_quit(int code);
 void	sig_init(void);
 void	run_signals(int sig);
 void	restore_prompt(int sig);

@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:20 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:23:17 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 12:40:05 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,7 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 	signal(SIGINT, SIG_IGN);
 	ret = exec_cmd(path, args, env, mini);
 	if (g_sig.sigint == 1 || g_sig.sigquit == 1)
-	{
-		write(1, "\n", 1);
 		return (g_sig.exit_status);
-	}
 	if (ret == 32512 || ret == 32256)
 		ret = ret / 256;
 	return (ret);
