@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:42 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:13:02 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int	ft_istype(t_token *token, int type)
 
 int	has_atype_of(t_token *token, char *types)
 {
-	if (ft_strchr(types, ' ') && ft_istype(token, EMPTY))
-		return (1);
-	else if (ft_strchr(types, 'X') && ft_istype(token, CMD))
+	if (ft_strchr(types, 'X') && ft_istype(token, CMD))
 		return (1);
 	else if (ft_strchr(types, 'x') && ft_istype(token, ARG))
 		return (1);

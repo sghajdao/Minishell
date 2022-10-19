@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:20 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/19 11:55:27 by slammari         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:22:55 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ static	int	exec_cmd(char *path, char **args, t_env *env, t_mini *mini)
 	ret = SUCCESS;
 	if (g_sig.pid == 0)
 	{
-		signal (SIGINT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		ptr = env_to_string(env);
 		env_array = ft_split(ptr, '\n');
 		ft_memdel(ptr);
 		if (ft_strchr(path, '/') != NULL)
-			execve(path, args, env_array);
+		execve(path, args, env_array);
 		ret = print_error(path);
 		freeing_tab(env_array);
 		freeing_token(mini->start);
@@ -68,8 +68,6 @@ static	int	exec_cmd(char *path, char **args, t_env *env, t_mini *mini)
 int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 {
 	int		ret;
-	//char	**env_array;
-	//char	*ptr;
 
 	ret = SUCCESS;
 	g_sig.pid = fork();

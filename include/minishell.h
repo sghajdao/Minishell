@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:29:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 13:18:09 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:17:53 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define EMPTY 0
 # define CMD 1
 # define ARG 2
 # define TRUNC 3
@@ -72,6 +71,7 @@ typedef struct s_mini
 	t_env	*copy_env;
 	t_list	*file;
 	int		heredoc;
+	int		redirout;
 	int		type_quotes;
 	int		in;
 	int		out;
@@ -139,7 +139,7 @@ int		already_exist_in_env(t_env *env, char *args);
 int		ft_unset(char **args, t_mini *mini);
 void	ft_exit(t_mini *mini, char **cmd);
 void	print_cd_error(char **args);
-char	*get_path_from_env(t_env *env, const char *var, size_t len);
+char	*get_path_from_env(t_env *env, const char *var, size_t len, int flag);
 int		add_to_env(const char *value, t_env *env);
 int		already_exist_in_env(t_env *env, char *args);
 void	concat(char **env, t_env *e);
@@ -156,7 +156,7 @@ t_token	*tokenizer(char *line);
 void	arrengement_token(t_mini *mini);
 int		is_first_arg(t_token *token);
 int		is_quote_open(char *line, int index, t_mini *mini);
-void	type_arg_parsing(t_token *token, int separator);
+void	type_arg_parsing(t_token *token);
 int		ft_isseparator(char *line, int i, t_mini *mini);
 int		transcend_separ(char *line, int i);
 char	*lexer(t_mini *mini);

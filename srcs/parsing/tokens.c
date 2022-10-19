@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 21:53:56 by slammari         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:22:22 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	type_arg_parsing(t_token *token)
 {
-	if (ft_strcmp(token->str, "") == 0)
-		token->type = EMPTY;
-	else if (ft_strcmp(token->str, "|") == 0)
+	if (ft_strcmp(token->str, "|") == 0)
 		token->type = PIPE;
 	else if (ft_strcmp(token->str, ">>") == 0)
 		token->type = APPEND;

@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 12:22:44 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:13:50 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	output(t_mini *mini, t_token *token, int type)
 		mini->ret = 1;
 		return ;
 	}
+	mini->redirout = 1;
 	dup2(mini->fdout, STDOUT);
 	free(file);
 }
@@ -83,7 +84,10 @@ static int	dup_and_init_in_process(t_mini *mini, pid_t pid, int *pipefd)
 	if (pid == 0)
 	{
 		close_fd(pipefd[1]);
-		dup2(pipefd[0], STDIN);
+		if (mini->redirout)
+			dup2(pipefd[0], mini->fdin);
+		else
+			dup2(pipefd[0], STDIN);
 		mini->pipin = pipefd[0];
 		mini->parent = 0;
 		mini->pid = -1;
@@ -93,7 +97,10 @@ static int	dup_and_init_in_process(t_mini *mini, pid_t pid, int *pipefd)
 	else
 	{
 		close_fd(pipefd[0]);
-		dup2(pipefd[1], STDOUT);
+		if (mini->redirout)
+			dup2(pipefd[0], mini->fdout);
+		else
+			dup2(pipefd[1], STDOUT);
 		mini->pipout = pipefd[1];
 		mini->pid = pid;
 		mini->last = 0;
