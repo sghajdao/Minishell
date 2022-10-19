@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 21:53:56 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	type_arg_parsing(t_token *token, int separator)
+void	type_arg_parsing(t_token *token)
 {
 	if (ft_strcmp(token->str, "") == 0)
 		token->type = EMPTY;
-	else if (ft_strcmp(token->str, "|") == 0 && separator == 0)
+	else if (ft_strcmp(token->str, "|") == 0)
 		token->type = PIPE;
-	else if (ft_strcmp(token->str, ">>") == 0 && separator == 0)
+	else if (ft_strcmp(token->str, ">>") == 0)
 		token->type = APPEND;
-	else if (ft_strcmp(token->str, "<<") == 0 && separator == 0)
+	else if (ft_strcmp(token->str, "<<") == 0)
 		token->type = HEREDOC;
-	else if (ft_strcmp(token->str, ">") == 0 && separator == 0)
+	else if (ft_strcmp(token->str, ">") == 0)
 		token->type = TRUNC;
-	else if (ft_strcmp(token->str, "<") == 0 && separator == 0)
+	else if (ft_strcmp(token->str, "<") == 0)
 		token->type = INPUT;
 	else if (token->prev == NULL || token->prev->type >= TRUNC)
 		token->type = CMD;
@@ -105,7 +105,7 @@ t_token	*tokenizer(char *line)
 		if (previous)
 			previous->next = next;
 		previous = next;
-		type_arg_parsing(next, 0);
+		type_arg_parsing(next);
 		ft_skip_space(line, &i);
 	}
 	if (next)
