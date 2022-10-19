@@ -2,6 +2,8 @@ NAME = minishell
 
 CC = cc
 
+CFLAGS = -Wall -Wextra -Werror
+
 LIBFT = libft/libft.a
 
 INCLUDE = ./include/minishell.h
