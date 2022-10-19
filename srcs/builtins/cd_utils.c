@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:35:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 13:17:43 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:06:33 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	copy_value(t_env *env, size_t len, char *oldpwd)
 	oldpwd[j] = '\0';
 }
 
-char	*get_path_from_env(t_env *env, const char *var, size_t len)
+char	*get_path_from_env(t_env *env, const char *var, size_t len, int flag)
 {
 	int		s_alloc;
 	char	*oldpwd;
@@ -56,7 +56,8 @@ char	*get_path_from_env(t_env *env, const char *var, size_t len)
 			if (!oldpwd)
 				return (NULL);
 			copy_value(env, len, oldpwd);
-			ft_putendl_fd(oldpwd, STDOUT);
+			if (flag)
+				ft_putendl_fd(oldpwd, STDOUT);
 			return (oldpwd);
 		}
 		env = env->next;
