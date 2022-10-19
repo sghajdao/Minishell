@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:20 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 13:33:19 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:55:27 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static	int	exec_cmd(char *path, char **args, t_env *env, t_mini *mini)
 int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 {
 	int		ret;
-	char	**env_array;
-	char	*ptr;
+	//char	**env_array;
+	//char	*ptr;
 
 	ret = SUCCESS;
 	g_sig.pid = fork();
