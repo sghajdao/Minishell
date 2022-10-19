@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 08:22:53 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:27:52 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	unset_middle(t_mini *mini, char *a, int flag)
 	t_env	*current;
 	t_env	*temp;
 
+	if (!mini->copy_env || !mini->env)
+		return ;
 	if (flag == 0)
 		current = mini->copy_env;
 	else
@@ -73,10 +75,14 @@ int	secret_unset(char **a, t_mini *mini)
 	t_env	*temp;
 	int		i;
 
+	if (!mini->copy_env || !mini->env)
+		return (0);
 	ft_error(a);
 	i = 1;
 	while (a[i])
 	{
+		if (!mini->copy_env)
+			break ;
 		if (!ft_strncmp(a[i], mini->copy_env->value, ft_strlen(a[i])) && \
 				ft_strlen(a[i]) == env_name_size(mini->copy_env->value))
 		{
@@ -97,10 +103,14 @@ int	ft_unset(char **a, t_mini *mini)
 	t_env	*temp;
 	int		i;
 
+	if (!mini->copy_env || !mini->env)
+		return (0);
 	secret_unset(a, mini);
 	i = 1;
 	while (a[i])
 	{
+		if (!mini->env)
+			break ;
 		if (!ft_strncmp(a[i], mini->env->value, ft_strlen(a[i])) && \
 				ft_strlen(a[i]) == env_name_size(mini->env->value))
 		{
