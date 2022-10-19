@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:43 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 12:40:37 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 21:59:22 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	run_signals(int sig)
 		signal(SIGQUIT, back_slash);
 	}
 	if (sig == 3)
-	{	
+	{
 		write(1, "\033[1A\033[11Cexit\n", 14);
 		exit(0);
 	}
@@ -41,6 +41,7 @@ void	run_signals(int sig)
 
 void	restore_prompt(int sig)
 {
+	(void)sig;
 	write(2, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -51,6 +52,7 @@ void	restore_prompt(int sig)
 
 void	ctrl_c(int sig)
 {
+	(void)sig;
 	write(2, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
