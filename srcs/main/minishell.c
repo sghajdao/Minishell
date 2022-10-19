@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:53 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:23:05 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 21:51:12 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	rl_catch_signals = 0;
 	initialization(&mini, env);
 	while (mini.exit == 0)
 	{
