@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:27:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 13:26:23 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:06:08 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	change_directory(int option, t_env *env, t_mini *mini)
 	env_path = NULL;
 	if (option == 0)
 	{
-		env_path = get_path_from_env(env, "HOME", 4);
+		env_path = get_path_from_env(env, "HOME", 4, 0);
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: HOME not set", STDERR);
 		if (!env_path)
@@ -28,7 +28,7 @@ static int	change_directory(int option, t_env *env, t_mini *mini)
 	}
 	else if (option == 1)
 	{
-		env_path = get_path_from_env(env, "OLDPWD", 6);
+		env_path = get_path_from_env(env, "OLDPWD", 6, 1);
 		if (!env_path)
 			ft_putendl_fd("minishell : cd: OLDPWD not set", STDERR);
 		if (!env_path)
