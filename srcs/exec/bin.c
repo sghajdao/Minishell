@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:20 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/19 12:22:55 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:28:37 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static	int	exec_cmd(char *path, char **args, t_env *env, t_mini *mini)
 		env_array = ft_split(ptr, '\n');
 		ft_memdel(ptr);
 		if (ft_strchr(path, '/') != NULL)
-		execve(path, args, env_array);
+			execve(path, args, env_array);
 		ret = print_error(path);
 		freeing_tab(env_array);
 		freeing_token(mini->start);
@@ -77,10 +77,10 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 	signal(SIGINT, SIG_IGN);
 	ret = exec_cmd(path, args, env, mini);
 	if (g_sig.sigint == 1 || g_sig.sigquit == 1)
-		return (g_sig.exit_status);
-	if (ret == 32512 || ret == 32256)
-		ret = ret / 256;
-	return (ret);
+		return (WEXITSTATUS(g_sig.exit_status));
+	//if (ret == 32512 || ret == 32256)
+	//	ret = ret / 256;
+	return (WEXITSTATUS(ret));
 }
 
 static char	*path_join(const char *s1, const char *s2)

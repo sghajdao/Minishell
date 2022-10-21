@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:23:14 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:02:56 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	close_multi_fds(t_mini *mini)
 	close_fd(mini->fdout);
 	close_fd(mini->pipin);
 	close_fd(mini->pipout);
+	// close(mini->out);
+	// close(mini->in);
 }
 
 void	reset_all_fds(t_mini *mini)

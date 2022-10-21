@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 08:22:53 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 19:27:52 by slammari         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:15:36 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ int	ft_unset(char **a, t_mini *mini)
 			mini->env = mini->env->next;
 			ft_memdel(temp->value);
 			ft_memdel(temp);
+			i = 1;
+			continue ;
 		}
 		else
 			unset_middle(mini, a[i], 1);

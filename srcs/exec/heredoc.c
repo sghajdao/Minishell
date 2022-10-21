@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:09:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:56:07 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 			mini->heredoc = 1;
 			signal(SIGINT, handler);
 			read_until_delimiter(mini, tmp, file_name, fd);
+			close(fd);
 		}
 		tmp = tmp->next;
 	}

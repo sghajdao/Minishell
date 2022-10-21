@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/19 12:13:50 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:03:25 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	output(t_mini *mini, t_token *token, int type)
 		return ;
 	}
 	mini->redirout = 1;
-	dup2(mini->fdout, STDOUT);
 	free(file);
+	mini->pipe = 0;
 }
 
 void	input(t_mini *mini, t_token *token)
@@ -84,10 +84,12 @@ static int	dup_and_init_in_process(t_mini *mini, pid_t pid, int *pipefd)
 	if (pid == 0)
 	{
 		close_fd(pipefd[1]);
-		if (mini->redirout)
-			dup2(pipefd[0], mini->fdin);
-		else
-			dup2(pipefd[0], STDIN);
+		//if (mini->redirout)
+		//	dup2(pipefd[0], mini->fdin);
+		//else
+		//	dup2(pipefd[0], STDIN);
+		dup2(mini->fdin, 0);
+		mini->fdin = pipefd[0];
 		mini->pipin = pipefd[0];
 		mini->parent = 0;
 		mini->pid = -1;
@@ -97,11 +99,8 @@ static int	dup_and_init_in_process(t_mini *mini, pid_t pid, int *pipefd)
 	else
 	{
 		close_fd(pipefd[0]);
-		if (mini->redirout)
-			dup2(pipefd[0], mini->fdout);
-		else
-			dup2(pipefd[1], STDOUT);
-		mini->pipout = pipefd[1];
+		dup2(mini->fdout, 1);
+		mini->fdout = pipefd[1];
 		mini->pid = pid;
 		mini->last = 0;
 		return (1);
@@ -114,6 +113,7 @@ int	minipipe(t_mini *mini)
 	int		pipefd[2];
 
 	pipe(pipefd);
+	mini->pipe = 1;
 	pid = fork();
 	if (pid < 0)
 	{
