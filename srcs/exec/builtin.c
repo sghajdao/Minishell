@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:23 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/20 13:15:02 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 20:12:59 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int	builtin_executor(char **args, t_mini *mini)
 	if (ft_strcmp(args[0], "env") == 0 || ft_strcmp(args[0], "ENV") == 0)
 		ft_env(mini->env);
 	if (ft_strcmp(args[0], "export") == 0)
+	{
+		empty_env(mini, args);
 		ft_export(args, mini->env, mini->copy_env);
+	}
 	if (ft_strcmp(args[0], "pwd") == 0)
 		result = ft_pwd(mini);
 	if (ft_strcmp(args[0], "unset") == 0)

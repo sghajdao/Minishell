@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:29:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/20 22:46:45 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 20:10:44 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ size_t	env_name_size(char *env);
 int		error_case(char *args, int *i, int *error_ret);
 int		update_oldpwd(t_mini *mini);
 void	updat_pwd(t_mini *mini);
+void	empty_env(t_mini *mini, char **args);
 
 /*
 ** PARSING

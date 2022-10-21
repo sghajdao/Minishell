@@ -6,7 +6,7 @@
 /*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:35:32 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 10:07:39 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 20:10:13 by sghajdao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	add_to_env(const char *value, t_env *env)
 	new->value = ft_strdup(value);
 	if (!new->value)
 		return (ERROR);
+	if (!env)
+		return (SUCCESS);
 	while (env && env->next && env->next->next)
 		env = env->next;
 	tmp = env->next;
@@ -103,4 +105,25 @@ void	concat(char **env, t_env *e)
 	if (!*env)
 		return ;
 	free(copy);
+}
+
+void	empty_env(t_mini *mini, char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		if (!mini->env)
+		{
+			if (ft_search(args[1], '='))
+			{
+				ft_lstadd_back_env(&mini->env, ft_lstnew_env(args[1]));
+				ft_lstadd_back_env(&mini->copy_env, ft_lstnew_env(args[1]));
+			}
+			else
+				ft_lstadd_back_env(&mini->copy_env, ft_lstnew_env(args[1]));
+		}
+		i++;
+	}
 }
