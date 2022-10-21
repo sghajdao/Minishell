@@ -71,6 +71,7 @@ typedef struct s_mini
 	t_env	*copy_env;
 	t_list	*file;
 	int		heredoc;
+	int		pipe;
 	int		redirout;
 	int		type_quotes;
 	int		in;
