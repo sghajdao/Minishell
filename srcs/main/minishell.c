@@ -58,7 +58,12 @@ void	exec_and_redir(t_mini *mini, t_token *token)
 		exec_and_redir(mini, next->next);
 	if ((ft_istype(previous, PIPE) || !previous)
 		&& pipe != 1 && mini->no_exec == 0)
+	{
+		if (mini->pipe == 0 || (mini->pipe == 1 && mini->redirout == 0))
+			dup2(mini->fdout, 1);
+		dup2(mini->fdin, 0);
 		execution_center(mini, token);
+	}
 }
 
 void	minishell(t_mini *mini)
@@ -98,6 +103,7 @@ int	main(int ac, char **av, char **env)
 	initialization(&mini, env);
 	while (mini.exit == 0)
 	{
+		mini.pipe = 0;
 		mini.heredoc = 0;
 		mini.type_quotes = 0;
 		mini.redirout = 0;
