@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:22:17 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/18 12:03:29 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:07:54 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	check_quote(t_mini *mini, char **line)
 	{
 		ft_putendl_fd("minishell: syntax error with open quotes", STDERR);
 		ft_memdel(*line);
-		mini->ret = 2;
+		mini->ret = 258;
 		mini->start = NULL;
 		return (1);
 	}

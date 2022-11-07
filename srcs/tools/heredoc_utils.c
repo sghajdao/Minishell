@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:37:51 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/19 12:58:17 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:39:20 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	stop_reading(t_mini *mini, t_token *tmp, char *file_name)
 	tmp->str = ft_strdup("<");
 	if (!tmp->str)
 		return (ERROR);
-	tmp->next->str = file_name;
+	tmp->next->str = ft_strdup(file_name);
+	if (!tmp->next->str)
+		return (ERROR);
 	return (SUCCESS);
 }
 

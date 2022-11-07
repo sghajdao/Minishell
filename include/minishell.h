@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 13:29:30 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/21 20:10:44 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 22:16:48 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_mini
 	t_env	*env;
 	t_env	*copy_env;
 	t_list	*file;
+	int		no_env;
 	int		heredoc;
 	int		pipe;
 	int		redirout;
@@ -124,6 +125,7 @@ void	execution_center(t_mini *mini, t_token *token);
 int		executor(char **args, t_env *env, t_mini *mini);
 int		builtin_executor(char **args, t_mini *mini);
 int		is_builtin_cmd(char	*command);
+void	execution(t_mini *mini, t_token *token);
 
 /*
 ** BUILTINS

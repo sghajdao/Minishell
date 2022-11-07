@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:48 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/21 12:03:25 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:30:06 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	output(t_mini *mini, t_token *token, int type)
 		return ;
 	close_fd(mini->fdout);
 	if (type == TRUNC)
-		mini->fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+		mini->fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else
-		mini->fdout = open(file, O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
+		mini->fdout = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (!access(file, F_OK) && access(file, W_OK) == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
@@ -74,8 +74,10 @@ void	input(t_mini *mini, t_token *token)
 		else if (!access(file, F_OK) && access(file, R_OK) == -1)
 			ft_putendl_fd(": permission denied", STDERR);
 		mini->ret = 1;
+		free(file);
 		return ;
 	}
+	free(file);
 	dup2(mini->fdin, STDIN);
 }
 
@@ -84,10 +86,6 @@ static int	dup_and_init_in_process(t_mini *mini, pid_t pid, int *pipefd)
 	if (pid == 0)
 	{
 		close_fd(pipefd[1]);
-		//if (mini->redirout)
-		//	dup2(pipefd[0], mini->fdin);
-		//else
-		//	dup2(pipefd[0], STDIN);
 		dup2(mini->fdin, 0);
 		mini->fdin = pipefd[0];
 		mini->pipin = pipefd[0];

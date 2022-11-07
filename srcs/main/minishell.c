@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:21:53 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/21 13:00:30 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 22:20:45 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	initialization(t_mini *mini, char **env)
 	mini->exit = 0;
 	mini->ret = 0;
 	mini->no_exec = 0;
+	mini->no_env = 0;
 	reset_all_fds(mini);
 	init_env(mini, env);
 	init_copy_env(mini, env);
@@ -58,12 +59,7 @@ void	exec_and_redir(t_mini *mini, t_token *token)
 		exec_and_redir(mini, next->next);
 	if ((ft_istype(previous, PIPE) || !previous)
 		&& pipe != 1 && mini->no_exec == 0)
-	{
-		if (mini->pipe == 0 || (mini->pipe == 1 && mini->redirout == 0))
-			dup2(mini->fdout, 1);
-		dup2(mini->fdin, 0);
-		execution_center(mini, token);
-	}
+		execution(mini, token);
 }
 
 void	minishell(t_mini *mini)

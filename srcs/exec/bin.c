@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:20 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/21 12:28:37 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:32:08 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int	fork_proces(char *path, char **args, t_env *env, t_mini *mini)
 	ret = exec_cmd(path, args, env, mini);
 	if (g_sig.sigint == 1 || g_sig.sigquit == 1)
 		return (WEXITSTATUS(g_sig.exit_status));
-	//if (ret == 32512 || ret == 32256)
-	//	ret = ret / 256;
 	return (WEXITSTATUS(ret));
 }
 

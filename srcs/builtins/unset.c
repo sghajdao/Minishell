@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 08:22:53 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/21 15:15:36 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 22:21:18 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int	secret_unset(char **a, t_mini *mini)
 	t_env	*temp;
 	int		i;
 
-	if (!mini->copy_env || !mini->env)
-		return (0);
+	if ((!mini->copy_env || !mini->env) && !mini->no_env)
+		return (-1);
 	ft_error(a);
 	i = 1;
 	while (a[i])
@@ -103,9 +103,8 @@ int	ft_unset(char **a, t_mini *mini)
 	t_env	*temp;
 	int		i;
 
-	if (!mini->copy_env || !mini->env)
+	if (secret_unset(a, mini) == -1)
 		return (0);
-	secret_unset(a, mini);
 	i = 1;
 	while (a[i])
 	{

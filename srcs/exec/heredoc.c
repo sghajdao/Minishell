@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:09:05 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/21 11:56:07 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:09:08 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ft_heredoc(t_mini *mini, t_token **lst)
 			mini->heredoc = 1;
 			signal(SIGINT, handler);
 			read_until_delimiter(mini, tmp, file_name, fd);
+			free(file_name);
 			close(fd);
 		}
 		tmp = tmp->next;

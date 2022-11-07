@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 12:30:26 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/21 07:57:33 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 21:58:05 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,12 @@ void	execution_center(t_mini *mini, t_token *token)
 	mini->pipin = -1;
 	mini->pipout = -1;
 	mini->charge = 0;
+}
+
+void	execution(t_mini *mini, t_token *token)
+{
+	if (mini->pipe == 0 || (mini->pipe == 1 && mini->redirout == 0))
+		dup2(mini->fdout, 1);
+	dup2(mini->fdin, 0);
+	execution_center(mini, token);
 }

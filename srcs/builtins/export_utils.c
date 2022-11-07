@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sghajdao <sghajdao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slammari <slammari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:35:32 by sghajdao          #+#    #+#             */
-/*   Updated: 2022/10/21 20:10:13 by sghajdao         ###   ########.fr       */
+/*   Updated: 2022/10/21 22:22:02 by slammari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,21 +109,18 @@ void	concat(char **env, t_env *e)
 
 void	empty_env(t_mini *mini, char **args)
 {
-	int	i;
-
-	i = 0;
-	while (args[i])
+	if (!mini->env)
 	{
-		if (!mini->env)
+		mini->no_env = 0;
+		if (is_valid_env_str(args[1]) != 1 && is_valid_env_str(args[1]) != 2)
+			return ;
+		if (ft_search(args[1], '='))
 		{
-			if (ft_search(args[1], '='))
-			{
-				ft_lstadd_back_env(&mini->env, ft_lstnew_env(args[1]));
-				ft_lstadd_back_env(&mini->copy_env, ft_lstnew_env(args[1]));
-			}
-			else
-				ft_lstadd_back_env(&mini->copy_env, ft_lstnew_env(args[1]));
+			ft_lstadd_back_env(&mini->env, ft_lstnew_env(args[1]));
+			ft_lstadd_back_env(&mini->copy_env, ft_lstnew_env(args[1]));
 		}
-		i++;
+		else
+			ft_lstadd_back_env(&mini->copy_env, ft_lstnew_env(args[1]));
+		mini->no_env = 1;
 	}
 }
